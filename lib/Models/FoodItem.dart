@@ -22,35 +22,34 @@ class FoodItem {
 
   Map<String, dynamic> toJson() {
     return {
-      'name': getName() ?? 'Unnamed Item',
-      'price': getPrice() ?? 0.00,
-      'description': getDescription() ?? 'No Additional Info.',
-      'addOns': getAddOns()?.map((addon) {
+      'name': getName(),
+      'price': getPrice(),
+      'description': getDescription(),
+      'addOns': getAddOns().map((addon) {
             return addon?.toJson();
-          })?.toList() ??
-          [],
-      'imageUrl': getUrl() ?? 'https://www.theemailcompany.com/wp-content/uploads/2016/02/no-image-placeholder-big.jpg',
+          }).toList(),
+      'imageUrl': getUrl(),
     };
   }
 
   FoodItem fromJson(Map json) {
+    if (json == null) return FoodItem();
     return new FoodItem(
-      name: json['name'] ?? 'Unnamed Item',
-      price: json['price'] ?? 0.00,
-      description: json['description'] ?? 'No Additional Info.',
+      name: json['name'],
+      price: json['price'],
+      description: json['description'],
       addOns: json['addOns']?.map<AddOn>((json) {
             return AddOn().fromJson(json);
-          })?.toList() ??
-          [],
-      url: json['imageUrl'] ?? 'https://www.theemailcompany.com/wp-content/uploads/2016/02/no-image-placeholder-big.jpg',
+          })?.toList(),
+      url: json['imageUrl'],
     );
   }
 
-  List<AddOn> getAddOns() => _addOns;
-  String getDescription() => _description;
-  double getPrice() => _price;
-  String getName() => _name;
-  String getUrl() => _imageUrl;
+  List<AddOn> getAddOns() => _addOns ?? [];
+  String getDescription() => _description ?? 'No Additional Info.';
+  double getPrice() => _price ?? 0.00;
+  String getName() => _name ?? 'Unnamed Item';
+  String getUrl() => _imageUrl ?? 'https://www.theemailcompany.com/wp-content/uploads/2016/02/no-image-placeholder-big.jpg';
 
   setAddOns(List<AddOn> value) {
     _addOns = value;

@@ -1,8 +1,8 @@
-import 'package:SafeDine/Interfaces/DatabaseModel.dart';
 import 'package:SafeDine/Services/Authentication.dart';
 import 'package:SafeDine/Services/Database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Account.dart';
+import '../Interfaces/DatabaseModel.dart';
 import 'Order.dart';
 
 class Visitor extends Account implements DatabaseModel{
@@ -32,16 +32,17 @@ class Visitor extends Account implements DatabaseModel{
   @override
   Map<String, dynamic> toJson() {
     return {
-      'id': id ?? '',
-      'email': super.getEmail() ?? '',
+      'id': getID(),
+      'email': super.getEmail(),
     };
   }
 
   @override
   Visitor fromJson(Map json){
+    if (json == null) return Visitor();
     return new Visitor(
-      id: json['id'] ?? '',
-      email: json['email'] ?? '',
+      id: json['id'],
+      email: json['email'],
     );
   }
 
@@ -67,5 +68,15 @@ class Visitor extends Account implements DatabaseModel{
   @override
   Future<void> register() async{
     return await Authentication().register(this);
+  }
+
+    @override
+  String getID() {
+    return id ?? '';
+  }
+
+  @override
+  void setID(String id) {
+    this.id = id;
   }
 }

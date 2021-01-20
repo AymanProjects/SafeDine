@@ -15,19 +15,19 @@ abstract class Account {
   Future<void> logout();
   Future<void> register();
 
-  String getName() => _name;
+  String getName() => _name ?? '';
 
   setName(String value) {
     _name = value;
   }
 
-  String getPassword() => _password;
+  String getPassword() => _password ?? '';
 
   setPassword(String value) {
     _password = value;
   }
 
-  String getEmail() => _email;
+  String getEmail() => _email ?? '';
 
   setEmail(String value) {
     _email = value;

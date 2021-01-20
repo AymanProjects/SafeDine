@@ -4,4 +4,6 @@ abstract class DatabaseModel{
   Map toJson();
   Future fetch(String id);
   Future updateOrCreate();
+  String getID();
+  void setID(String id);
 }

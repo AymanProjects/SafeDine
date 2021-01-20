@@ -11,20 +11,21 @@ class ItemDetails{
 
   Map<String, dynamic> toJson() {
     return{
-      'item': getItem()?.toJson() ?? FoodItem().toJson(),
-      'quantity': getQuantity() ?? 1,
+      'item': getItem().toJson(),
+      'quantity': getQuantity(),
     };
   }
 
   ItemDetails fromJson(Map json){
+    if (json == null) return ItemDetails();
     return new ItemDetails(
       item: FoodItem().fromJson(json['item'] ?? {}),
-      quantity: json['quantity'] ?? 1,
+      quantity: json['quantity'],
     );
   }
 
-  FoodItem getItem() => _item;
-  int getQuantity() => _quantity;
+  FoodItem getItem() => _item ?? FoodItem();
+  int getQuantity() => _quantity ?? 1;
 
   setItem(FoodItem value) {
     _item = value;

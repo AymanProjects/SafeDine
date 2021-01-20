@@ -20,29 +20,30 @@ class Restaurant extends Account implements DatabaseModel{
  @override
   Map<String, dynamic> toJson() {
     return {
-      'id': id ?? '',
-      'email': super.getEmail() ?? '',
-      'name' : super.getName() ?? '',
+      'id': getID(),
+      'email': super.getEmail(),
+      'name' : super.getName(),
       'menu' : getMenu()?.map((category) {
         return category?.toJson();
-      })?.toList() ?? [],
+      })?.toList(),
     };
   }
 
   @override
   Restaurant fromJson(Map json){
+    if (json == null) return Restaurant();
     return new Restaurant(
-      id: json['id'] ?? '',
-      email: json['email'] ?? '',
-      name : json['name'] ?? '',
+      id: json['id'],
+      email: json['email'],
+      name : json['name'],
       menu : json['menu']?.map<Category>((json) {
         return Category().fromJson(json);
-      })?.toList() ?? [],
+      })?.toList(),
     );
   }
 
   bool createTableQR(String tableNumber){
-      // TODO:
+    //
   }
 
   @override
@@ -80,10 +81,20 @@ class Restaurant extends Account implements DatabaseModel{
     return await auth.register(this);
   }
 
-  List<Category> getMenu() => _menu;
+  List<Category> getMenu() => _menu ?? [];
 
   setMenu(List<Category> value) {
     _menu = value;
+  }
+
+    @override
+  String getID() {
+    return id ?? '';
+  }
+
+  @override
+  void setID(String id) {
+    this.id = id;
   }
 }
 

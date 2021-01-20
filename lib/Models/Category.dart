@@ -11,24 +11,25 @@ class Category {
 
   Map<String, dynamic> toJson() {
     return {
-      'name': getName() ?? 'Unnamed category',
+      'name': getName(),
       'items': getItems()?.map((item) {
         return item?.toJson();
-      })?.toList() ?? [],
+      })?.toList(),
     };
   }
 
   Category fromJson(Map json){
+    if (json == null) return Category();
     return new Category(
-      name: json['name'] ?? 'Unnamed category',
+      name: json['name'],
       items: json['items']?.map<FoodItem>((json) {
         return FoodItem().fromJson(json);
-      })?.toList() ?? [],
+      })?.toList(),
     );
   }
 
-  List<FoodItem> getItems() => _items;
-  String getName() => _name;
+  List<FoodItem> getItems() => _items ?? [];
+  String getName() => _name ?? 'Unnamed category';
 
   setAddOns(List<FoodItem> value) {
     _items = value;
