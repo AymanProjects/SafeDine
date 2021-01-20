@@ -72,7 +72,7 @@ class Visitor extends Account implements DatabaseModel{
 
     @override
   String getID() {
-    return id ?? '';
+    return id;
   }
 
   @override
