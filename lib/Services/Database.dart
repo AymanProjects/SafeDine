@@ -1,9 +1,15 @@
 import 'package:SafeDine/Interfaces/DatabaseModel.dart';
+import 'package:SafeDine/Models/Order.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
 class Database {
   
+  static String visitorsCollection = 'visitors';
+  static String restaurantsCollection = 'restaurants';
+  static String branchesCollection = 'branches';
+  static String ordersCollection = 'orders';
+
   Future<DocumentSnapshot> getDocument(String id, String collectionName) async {
     return await Firestore.instance
         .collection(collectionName)
@@ -33,5 +39,14 @@ class Database {
 
   Future<void> deleteDocument(String id, String collectionName) async {
     await Firestore.instance.collection(collectionName).document(id).delete();
+  }
+
+    Stream<List<Order>> getOrdersOfVisitorWhere({String status, String visitorID}){
+    return Firestore.instance.collection(ordersCollection).where('visitorID', isEqualTo: visitorID).where('status', isEqualTo: status).orderBy('date')
+      .snapshots().map((QuerySnapshot snapshot) {
+        return snapshot.documents.map((doc) {
+          return Order().fromJson(doc.data);
+        }).toList();
+      });
   }
 }
