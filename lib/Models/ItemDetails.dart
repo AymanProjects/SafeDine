@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'AddOn.dart';
 import 'FoodItem.dart';
 
-class ItemDetails {
+class ItemDetails with ChangeNotifier {
   FoodItem _item;
   List<AddOn> _selectedAddOns;
   int _quantity;
@@ -39,10 +40,12 @@ class ItemDetails {
 
   addSelectedAddOn(AddOn addon) {
     _selectedAddOns.add(addon);
+    notifyListeners();
   }
 
   removeSelectedAddOn(AddOn addon) {
     _selectedAddOns.remove(addon);
+    notifyListeners();
   }
 
   setItem(FoodItem item) {
@@ -51,10 +54,12 @@ class ItemDetails {
 
   increaseQuantity() {
     _quantity++;
+    notifyListeners();
   }
 
   decreaseQuantity() {
     if (_quantity > 1) _quantity--;
+    notifyListeners();
   }
 
   double getTotalSelectionPrice() {
