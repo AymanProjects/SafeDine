@@ -5,7 +5,7 @@ class SafeDineSnackBar {
   SafeDineSnackBar.error({BuildContext context, String msg}) {
     showFlash(
       context: context,
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 2),
       builder: (context, controller) {
         return Flash(
           controller: controller,
@@ -33,7 +33,7 @@ class SafeDineSnackBar {
   SafeDineSnackBar.warning({BuildContext context, String msg}) {
     showFlash(
       context: context,
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 2),
       builder: (context, controller) {
         return Flash(
           controller: controller,
@@ -61,7 +61,7 @@ class SafeDineSnackBar {
   SafeDineSnackBar.success({BuildContext context, String msg}) {
     showFlash(
       context: context,
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 2),
       builder: (context, controller) {
         return Flash(
           controller: controller,

@@ -12,9 +12,9 @@ class Category {
   Map<String, dynamic> toJson() {
     return {
       'name': getName(),
-      'items': getItems()?.map((item) {
+      'items': getItems().map((item) {
         return item?.toJson();
-      })?.toList(),
+      }).toList(),
     };
   }
 

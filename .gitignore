@@ -118,3 +118,5 @@ app.*.symbols
 
 /android/app/google-services.json
 /assets/
+/local
+/local.properties
