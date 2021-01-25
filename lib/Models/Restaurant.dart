@@ -87,9 +87,9 @@ class Restaurant extends Account implements DatabaseModel{
     _menu = value;
   }
 
-    @override
+   @override
   String getID() {
-    return id;
+    return id ?? '';
   }
 
   @override

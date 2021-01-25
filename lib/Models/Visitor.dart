@@ -70,9 +70,9 @@ class Visitor extends Account implements DatabaseModel{
     return await Authentication().register(this);
   }
 
-    @override
+   @override
   String getID() {
-    return id;
+    return id ?? '';
   }
 
   @override

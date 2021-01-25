@@ -1,3 +1,4 @@
+import 'package:SafeDine/Screens/Home/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'AppStyleConfiguration.dart';
@@ -19,7 +20,7 @@ void main() async {
         ),
       ],
       child: AppStyleConfiguration(
-        child: AuthScreen(),
+        child: HomeScreen(),
       ),
     ),
   );

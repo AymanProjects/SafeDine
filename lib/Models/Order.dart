@@ -9,7 +9,7 @@ enum OrderStatus {
   Cancelled,
 }
 
-class Order implements DatabaseModel{
+class Order implements DatabaseModel {
   String _tableNumber;
   double _totalPrice;
   String _paymentType;
@@ -21,8 +21,17 @@ class Order implements DatabaseModel{
   @override
   String id;
 
-
-  Order({String tableNumber, double totalPrice, String paymentType, String date, List<ItemDetails> itemDetails, String visitorID, String branchID, String status, String id}){
+  Order(
+      {String tableNumber,
+      double totalPrice,
+      String paymentType,
+      String date,
+      List<ItemDetails> itemDetails,
+      String visitorID,
+      String branchID,
+      String status,
+      String id}) {
+    this.id = id;
     this._tableNumber = tableNumber;
     this._totalPrice = totalPrice;
     this._paymentType = paymentType;
@@ -51,36 +60,36 @@ class Order implements DatabaseModel{
   }
 
   @override
-  Order fromJson(Map json){
+  Order fromJson(Map json) {
     if (json == null) return Order();
-     return new Order(
-       id: json['id'],
-       tableNumber: json['tableNumber'],
-       totalPrice: json['totalPrice'],
-       paymentType: json['paymentType'],
-       date: json['date'],
-       itemDetails: json['itemDetails']?.map<ItemDetails>((json) {
-         return ItemDetails().fromJson(json);
-       })?.toList(),
-       status: json['status'],
-       visitorID: json['visitorID'],
-       branchID: json['branchID'],
-     );
+    return new Order(
+      id: json['id'],
+      tableNumber: json['tableNumber'],
+      totalPrice: json['totalPrice'],
+      paymentType: json['paymentType'],
+      date: json['date'],
+      itemDetails: json['itemDetails']?.map<ItemDetails>((json) {
+        return ItemDetails().fromJson(json);
+      })?.toList(),
+      status: json['status'],
+      visitorID: json['visitorID'],
+      branchID: json['branchID'],
+    );
   }
 
   @override
-  Future<Order> fetch(String id) async{
-    DocumentSnapshot doc = await Database().getDocument(id, Database.ordersCollection);
+  Future<Order> fetch(String id) async {
+    DocumentSnapshot doc =
+        await Database().getDocument(id, Database.ordersCollection);
     return fromJson(doc.data);
   }
 
   @override
-  Future updateOrCreate() async{
+  Future updateOrCreate() async {
     await Database().setDocument(this, Database.ordersCollection);
   }
 
-
-  String getStatus() => _status  ?? 'Unknown';
+  String getStatus() => _status ?? 'Unknown';
 
   String getBranchID() => _branchID ?? '';
 
@@ -96,7 +105,6 @@ class Order implements DatabaseModel{
 
   String getTableNumber() => _tableNumber ?? '';
 
-
   setTotalPrice(double value) {
     _totalPrice = value;
   }
@@ -107,16 +115,15 @@ class Order implements DatabaseModel{
 
   setStatus(String value) {
     try {
-      if(value != null)
-      _status = value.substring(value.indexOf('.') + 1);
-    }catch (e){
+      if (value != null) _status = value.substring(value.indexOf('.') + 1);
+    } catch (e) {
       print(e.toString());
     }
   }
 
-    @override
+  @override
   String getID() {
-    return id;
+    return id ?? '';
   }
 
   @override

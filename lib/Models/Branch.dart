@@ -59,7 +59,7 @@ class Branch implements DatabaseModel {
 
   @override
   String getID() {
-    return id;
+    return id ?? '';
   }
 
   @override
