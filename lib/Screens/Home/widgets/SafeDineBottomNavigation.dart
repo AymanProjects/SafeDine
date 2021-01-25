@@ -6,13 +6,13 @@ import 'package:provider/provider.dart';
 
 import 'ScreenIndex.dart';
 
-class EpicBottomNavigation extends StatefulWidget {
+class SafeDineBottomNavigation extends StatefulWidget {
 
   @override
-  _EpicBottomNavigationState createState() => _EpicBottomNavigationState();
+  _SafeDineBottomNavigationState createState() => _SafeDineBottomNavigationState();
 }
 
-class _EpicBottomNavigationState extends State<EpicBottomNavigation> {
+class _SafeDineBottomNavigationState extends State<SafeDineBottomNavigation> {
 
   @override
   Widget build(BuildContext context) {

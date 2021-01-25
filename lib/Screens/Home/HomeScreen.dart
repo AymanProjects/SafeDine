@@ -3,7 +3,7 @@ import 'package:SafeDine/Screens/Menu/MenuScreen.dart';
 import 'package:SafeDine/Screens/OrderProgress/OrderProgressScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'widgets/EpicBottomNavigation.dart';
+import 'widgets/SafeDineBottomNavigation.dart';
 import 'widgets/ScreenIndex.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     bottom: 0,
                     right: 0,
                     left: 0,
-                    child: EpicBottomNavigation()),
+                    child: SafeDineBottomNavigation()),
               ],
             ),
           ),
