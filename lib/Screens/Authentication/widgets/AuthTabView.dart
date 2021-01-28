@@ -130,6 +130,7 @@ class _AuthPageViewState extends State<AuthPageView> {
         widget.buttonText == 'Login'
             ? await visitor.login()
             : await visitor.register();
+            Navigator.of(context).pop();
       } on PlatformException catch (exception) {
         String msg = FirebaseException.generateReadableMessage(
             exception); //firebase exception happened

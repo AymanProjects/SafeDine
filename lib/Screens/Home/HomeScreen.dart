@@ -1,7 +1,7 @@
 import 'package:SafeDine/Screens/Cart/CartScreen.dart';
 import 'package:SafeDine/Screens/Home/widgets/SafeDineBottomNavigation.dart';
 import 'package:SafeDine/Screens/Menu/MenuScreen.dart';
-import 'package:SafeDine/Screens/Menu/widgets/SafeDineDrawer.dart';
+import 'package:SafeDine/Screens/Home/widgets/SafeDineDrawer.dart';
 import 'package:SafeDine/Screens/OrderProgress/OrderProgressScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
