@@ -12,12 +12,12 @@ class FoodItem {
       double price,
       String description,
       List<AddOn> addOns,
-      url}) {
+      imageUrl}) {
     this._name = name;
     this._price = price;
     this._description = description;
     this._addOns = addOns;
-    this._imageUrl = url;
+    this._imageUrl = imageUrl;
   }
 
   Map<String, dynamic> toJson() {
@@ -41,7 +41,7 @@ class FoodItem {
       addOns: json['addOns']?.map<AddOn>((json) {
             return AddOn().fromJson(json);
           })?.toList(),
-      url: json['imageUrl'],
+      imageUrl: json['imageUrl'],
     );
   }
 

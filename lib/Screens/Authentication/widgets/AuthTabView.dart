@@ -133,9 +133,10 @@ class _AuthPageViewState extends State<AuthPageView> {
       } on PlatformException catch (exception) {
         String msg = FirebaseException.generateReadableMessage(
             exception); //firebase exception happened
-        SafeDineSnackBar.error(context: context, msg: msg);
+        SafeDineSnackBar.showNotification(context: context, type: SnackbarType.Error, msg: msg);
+        print(exception.toString());
       } catch (e) {
-        SafeDineSnackBar.error(context: context, msg: 'Undefined error happened');
+        SafeDineSnackBar.showNotification(context: context, msg: 'Undefined error happened', type: SnackbarType.Error);
       }
     }
     setState(() {

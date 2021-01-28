@@ -52,12 +52,12 @@ class ItemDetails with ChangeNotifier {
     _item = item;
   }
 
-  increaseQuantity() {
-    _quantity++;
+  increaseQuantityBy(int value) {
+    _quantity+=value;
     notifyListeners();
   }
 
-  decreaseQuantity() {
+  decreaseQuantityByOne() {
     if (_quantity > 1) _quantity--;
     notifyListeners();
   }

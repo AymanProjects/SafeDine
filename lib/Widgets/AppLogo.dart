@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 
 class AppLogo extends StatelessWidget {
   final double size;
-  AppLogo({this.size});
+  final Color color;
+  AppLogo({this.size, this.color});
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      CupertinoIcons.circle,
-      color: Theme.of(context).primaryColor,
-      size: size,
+    return Container(
+      width: size,
+      height: size,
+      child: Icon(
+      Icons.circle,
+      color: color,
+    ),
     );
   }
 }

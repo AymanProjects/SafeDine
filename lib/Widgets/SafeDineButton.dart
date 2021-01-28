@@ -5,12 +5,8 @@ class SafeDineButton extends StatelessWidget {
   final double fontSize;
   final Function function;
   final bool loading;
-
-  SafeDineButton(
-      {this.loading = false,
-      this.text = '',
-      this.function,
-      @required this.fontSize});
+  final Color color;
+  SafeDineButton({this.loading = false, this.text = '', this.function, @required this.fontSize,this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +15,17 @@ class SafeDineButton extends StatelessWidget {
       child: FlatButton(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(5))),
-          color: Theme.of(context).primaryColor,
+          color: color == null ? Theme.of(context).primaryColor :
+          color,
           disabledColor: Theme.of(context).primaryColor.withOpacity(0.3),
           onPressed: loading ? null : function, //null to disable button
           child: Padding(
-              padding: EdgeInsets.all(13),
+              padding: EdgeInsets.all(12),
               child: loading
                   ? Container(
                       height: 20,
                       width: 20,
-                      child: CircularProgressIndicator(strokeWidth: 3, valueColor: AlwaysStoppedAnimation<Color>(Colors.black12),),
+                      child: CircularProgressIndicator(strokeWidth: 3),
                     )
                   : Text(
                       text,
