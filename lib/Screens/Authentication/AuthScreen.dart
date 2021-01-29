@@ -41,6 +41,8 @@ class _AuthScreenState extends State<AuthScreen>
                 child: Padding(
                     padding: EdgeInsets.only(top: 0),
                     child: AppLogo(
+                      color:
+                          Provider.of<AppTheme>(context, listen: false).primary,
                       size: 80,
                     )),
               ),

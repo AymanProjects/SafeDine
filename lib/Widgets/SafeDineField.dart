@@ -11,43 +11,58 @@ class SafeDineField extends StatelessWidget {
   final bool isEmail;
   final Icon icon;
   final bool enabled;
+  final double height;
+  final int maxLines;
   SafeDineField(
       {this.enabled = true,
       this.autoValidate = false,
-      this.hintText,
+      this.hintText = '',
       this.validator,
       this.onChanged,
+      this.height = 50,
       this.isPassword = false,
       this.isEmail = false,
-      this.icon});
+      this.icon,
+      this.maxLines = 1});
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      enabled: enabled,
-      style: TextStyle(fontSize: 16, ),
-      decoration: InputDecoration(
-        hintText: hintText,
-        errorMaxLines: 1,
-        hintMaxLines: 1,
-        suffixIcon: icon,
-        contentPadding: EdgeInsets.all(16.0),
-        filled: true,
-        fillColor: Provider.of<AppTheme>(context).darkWhite,
-
-        enabledBorder: border(context:context),
-        focusedBorder: border(context: context, isSelected: true),
-        errorBorder: border(context:context),
-        disabledBorder: border(context:context),
-        focusedErrorBorder: border(context: context, isSelected: true),
+    return SizedBox(
+      height: height,
+      child: TextFormField(
+        enabled: enabled,
+        style: TextStyle(
+          fontSize: 16,
+        ),
+        decoration: InputDecoration(
+          hintText: hintText,
+          errorMaxLines: 1,
+          hintMaxLines: 1,
+          suffixIcon: icon,
+          contentPadding: EdgeInsets.all(16.0),
+          filled: true,
+          fillColor: Provider.of<AppTheme>(context).darkWhite,
+          enabledBorder: border(context: context),
+          focusedBorder: border(context: context, isSelected: true),
+          errorBorder: border(context: context),
+          disabledBorder: border(context: context),
+          focusedErrorBorder: border(context: context, isSelected: true),
+        ),
+        cursorColor: Theme.of(context).primaryColor,
+        obscureText: isPassword ? true : false,
+        validator: (val) {
+          if (validator != null)
+            return validator();
+          else
+            return null;
+        },
+        autovalidate: autoValidate,
+        onChanged: (val) {
+          if (onChanged != null) onChanged(val);
+        },
+        maxLines: maxLines,
+        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
       ),
-      cursorColor: Theme.of(context).primaryColor,
-      obscureText: isPassword ? true : false,
-      validator: validator,
-      autovalidate: autoValidate,
-      onChanged: onChanged,
-      maxLines: 1,
-      keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
     );
   }
 
@@ -55,7 +70,7 @@ class SafeDineField extends StatelessWidget {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(6),
       borderSide: BorderSide(
-        color:Provider.of<AppTheme>(context).darkWhite,
+        color: Provider.of<AppTheme>(context).darkWhite,
         width: 0.5,
         style: BorderStyle.solid,
       ),
