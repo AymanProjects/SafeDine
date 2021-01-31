@@ -3,17 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import 'ScreenIndex.dart';
 
 class SafeDineBottomNavigation extends StatefulWidget {
-
   @override
-  _SafeDineBottomNavigationState createState() => _SafeDineBottomNavigationState();
+  _SafeDineBottomNavigationState createState() =>
+      _SafeDineBottomNavigationState();
 }
 
 class _SafeDineBottomNavigationState extends State<SafeDineBottomNavigation> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +44,8 @@ class _SafeDineBottomNavigationState extends State<SafeDineBottomNavigation> {
   }
 
   Widget bottomBarItem({int index, context, IconData icon, double size}) {
-    ScreenIndex selectedScreenIndex = Provider.of<ScreenIndex>(context, listen: false);
+    ScreenIndex selectedScreenIndex =
+        Provider.of<ScreenIndex>(context, listen: false);
     bool isSelected = (selectedScreenIndex.index == index);
     return Align(
       alignment: isSelected ? Alignment.topCenter : Alignment.center,
@@ -63,7 +62,7 @@ class _SafeDineBottomNavigationState extends State<SafeDineBottomNavigation> {
           onPressed: () {
             setState(() {
               selectedScreenIndex.setScreenIndex(index);
-            });       
+            });
           },
         ),
       ),

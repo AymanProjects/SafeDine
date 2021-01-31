@@ -52,6 +52,14 @@ class ItemDetails with ChangeNotifier {
     _item = item;
   }
 
+  setQuantity(int value) {
+    _quantity = value;
+  }
+
+  setSelectedAddOns(List<AddOn> addOns) {
+    _selectedAddOns = addOns;
+  }
+
   increaseQuantityBy(int value) {
     _quantity+=value;
     notifyListeners();

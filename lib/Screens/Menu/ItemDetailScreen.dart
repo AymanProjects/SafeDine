@@ -1,3 +1,4 @@
+import 'package:SafeDine/Models/AddOn.dart';
 import 'package:SafeDine/Models/ItemDetails.dart';
 import 'package:SafeDine/Screens/Menu/widgets/ItemDetailAppBar.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
@@ -20,10 +21,22 @@ class ItemDetailScreen extends StatefulWidget {
 }
 
 class _ItemDetailScreenState extends State<ItemDetailScreen> {
+  List<AddOn> tempSelectedAddOns;
+  int tempQuantity;
+
+  @override
+  void initState() {
+    super.initState();
+    tempSelectedAddOns = widget.itemDetails
+        .getSelectedAddOns()
+        .toList(); // toList will create a new refrence (clone)
+    tempQuantity = widget.itemDetails.getQuantity();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<AppTheme>(context, listen: false).white,
+      backgroundColor: Provider.of<AppTheme>(context).white,
       body: CustomScrollView(slivers: [
         SliverPersistentHeader(
           delegate: ItemDetailAppBar(
@@ -39,7 +52,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               details(),
               SizedBox(height: 20),
               Divider(
-                color: Provider.of<AppTheme>(context, listen: false).grey,
+                color: Provider.of<AppTheme>(context).grey,
               ),
               SizedBox(height: 10),
               Text(
@@ -50,7 +63,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               addOnsWidget(context),
               SizedBox(height: 10),
               Divider(
-                color: Provider.of<AppTheme>(context, listen: false).grey,
+                color: Provider.of<AppTheme>(context).grey,
               ),
               SizedBox(height: 10),
               Text(
@@ -88,9 +101,6 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
   }
 
   Widget bottomButton(context) {
-    String prefixText = '';
-    if (widget.buttonFunction != null) prefixText = widget.buttonText;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
       child: Container(
@@ -101,10 +111,14 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
         ),
         child: SafeDineButton(
           text:
-              '$prefixText SAR ${widget.itemDetails.getTotalSelectionPrice().toStringAsFixed(2)}',
+              '${widget.buttonText} SAR ${getTempSelectionPrice().toStringAsFixed(2)}',
           fontSize: 14,
           function: () {
-            if (widget.buttonFunction != null) widget.buttonFunction();
+            if (widget.buttonFunction != null) {
+              widget.itemDetails.setQuantity(tempQuantity);
+              widget.itemDetails.setSelectedAddOns(tempSelectedAddOns);
+              widget.buttonFunction();
+            }
             Navigator.pop(context);
           },
         ),
@@ -120,7 +134,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           width: 30.w,
           height: 30.w,
           decoration: BoxDecoration(
-            color: Provider.of<AppTheme>(context, listen: false).darkWhite,
+            color: Provider.of<AppTheme>(context).darkWhite,
             borderRadius: BorderRadius.circular(3.w),
           ),
           child: Center(
@@ -129,7 +143,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               icon: Icon(Icons.remove),
               onPressed: () {
                 setState(() {
-                  widget.itemDetails.decreaseQuantityByOne();
+                  if (tempQuantity > 1) tempQuantity--;
                 });
               },
             ),
@@ -137,14 +151,14 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
         ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 30.w),
-          child: Text('${widget.itemDetails.getQuantity()}',
+          child: Text('$tempQuantity',
               style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
         ),
         Container(
           width: 30.w,
           height: 30.w,
           decoration: BoxDecoration(
-            color: Provider.of<AppTheme>(context, listen: false).darkWhite,
+            color: Provider.of<AppTheme>(context).darkWhite,
             borderRadius: BorderRadius.circular(3.w),
           ),
           child: Center(
@@ -152,7 +166,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               icon: Icon(Icons.add),
               onPressed: () {
                 setState(() {
-                  widget.itemDetails.increaseQuantityBy(1);
+                  tempQuantity++;
                 });
               },
               padding: EdgeInsets.zero,
@@ -179,18 +193,14 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                       children: [
                         Text('${addOn.getPrice().toStringAsFixed(2)}'),
                         Checkbox(
-                          value: widget.itemDetails
-                              .getSelectedAddOns()
-                              .contains(addOn),
-                          activeColor:
-                              Provider.of<AppTheme>(context, listen: false)
-                                  .primary,
+                          value: tempSelectedAddOns.contains(addOn),
+                          activeColor: Provider.of<AppTheme>(context).primary,
                           onChanged: (selected) {
                             setState(() {
                               if (selected)
-                                widget.itemDetails.addSelectedAddOn(addOn);
+                                tempSelectedAddOns.add(addOn);
                               else
-                                widget.itemDetails.removeSelectedAddOn(addOn);
+                                tempSelectedAddOns.remove(addOn);
                             });
                           },
                         ),
@@ -202,5 +212,13 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           .values
           .toList(),
     );
+  }
+
+  double getTempSelectionPrice() {
+    double tempAddOnsPrice = 0.00;
+    for (AddOn addon in tempSelectedAddOns) tempAddOnsPrice += addon.getPrice();
+
+    return (widget.itemDetails.getItem().getPrice() + tempAddOnsPrice) *
+        tempQuantity;
   }
 }
