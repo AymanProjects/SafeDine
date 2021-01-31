@@ -1,7 +1,8 @@
 import 'dart:ui';
+
 import 'package:SafeDine/Models/Visitor.dart';
 import 'package:SafeDine/Screens/Authentication/AuthScreen.dart';
-import 'package:SafeDine/Services/Authentication.dart';
+import 'package:SafeDine/Screens/Home/widgets/DrawerTile.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/AppLogo.dart';
 import 'package:SafeDine/Widgets/SafeDineButton.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class SafeDineDrawer extends StatelessWidget {
   @override
@@ -34,32 +36,34 @@ class SafeDineDrawer extends StatelessWidget {
               children: [
                 SizedBox(height: 55.h),
                 AppLogo(
-                  size: 90,
+                  size: 90.h,
                   color: Provider.of<AppTheme>(context, listen: false).primary,
                 ),
                 SizedBox(
                   height: 30.h,
                 ),
-                ListTile(
-                  leading: Icon(CupertinoIcons.time),
-                  title: Text('Order history'),
-                  onTap: () {},
+                DrawerTile(
+                  text: 'Order history',
+                  icon: CupertinoIcons.time,
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => OrderHistory()),
+                    // );
+                  },
                 ),
-                // Divider(
-                //   thickness: 1,
-                //   height: 2,
-                // ),
               ],
             ),
             Column(
               children: [
-                logoutWidget(context),
+                authBotton(context),
                 SizedBox(
-                  height: 10,
+                  height: 10.h,
                 ),
                 Text('Version 1.0.0'),
                 SizedBox(
-                  height: 15,
+                  height: 15.h,
                 ),
               ],
             ),
@@ -69,31 +73,45 @@ class SafeDineDrawer extends StatelessWidget {
     );
   }
 
-  Widget loginWidget(context) {
-    return ListTile(
-      leading: Icon(Icons.logout),
-      title: Text('Login'),
-      onTap: () {
-        Navigator.of(context).pop();
-        Navigator.push(
+  Widget authBotton(context) {
+    Visitor visitor = Provider.of<Visitor>(context, listen: false);
+
+    return visitor.getID() != null
+        ? logoutButton(context)
+        : loginButton(context);
+  }
+
+  Widget loginButton(context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: SafeDineButton(
+        color: Colors.green,
+        fontSize: 14.sp,
+        text: 'Login',
+        function: () {
+          Navigator.of(context).pop();
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => AuthScreen(),
-            ));
-      },
+            ),
+          );
+        },
+      ),
     );
   }
 
-  Widget logoutWidget(context) {
-  //  Visitor visitor = Provider.of<Visitor>(context, listen: false);
+  Widget logoutButton(context) {
+    Visitor visitor = Provider.of<Visitor>(context, listen: false);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: SafeDineButton(
         color: Colors.redAccent,
-        fontSize: 14,
+        fontSize: 14.sp,
         text: 'Logout',
         function: () {
-     //     visitor.logout();
+          visitor.logout();
+          Navigator.of(context).pop();
         },
       ),
     );

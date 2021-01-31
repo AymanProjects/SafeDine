@@ -6,6 +6,10 @@ class Authentication {
   Authentication._();
   static final FirebaseAuth _authInstance = FirebaseAuth.instance;
 
+  static Stream<FirebaseUser> getUserState() {
+    return _authInstance.onAuthStateChanged;
+  }
+
   static Future<void> login(Account account) async {
     try {
       await _authInstance.signInWithEmailAndPassword(

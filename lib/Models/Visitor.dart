@@ -5,27 +5,29 @@ import 'Account.dart';
 import '../Interfaces/DatabaseModel.dart';
 import 'Order.dart';
 
-class Visitor extends Account implements DatabaseModel{
+class Visitor extends Account implements DatabaseModel {
   @override
   String id;
 
-  Visitor({String id, String email, String password}): super(email: email, password: password){
+  Visitor({String id, String email, String password})
+      : super(email: email, password: password) {
     this.id = id;
   }
 
-  Future<void> placeOrder(Order order) async{
+  Future<void> placeOrder(Order order) async {
     try {
-      await Database.setDocument(order, Database.ordersCollection);
       //TODO: payment
-//      if (payment != null) // if in-app payment is chosen
-//        await payment.pay();
-    }catch(e){
+      if (order.getPaymentType() == 'paypal')
+        print('paypal');
+      else if (order.getPaymentType() == 'cash')
+        await Database.setDocument(order, Database.ordersCollection);
+    } catch (e) {
       Database.deleteDocument(order.id, Database.ordersCollection);
       rethrow;
     }
   }
 
-  Future<void> cancelOrder(Order order) async{
+  Future<void> cancelOrder(Order order) async {
     order.setStatus(OrderStatus.Cancelled.toString());
     await order.updateOrCreate();
   }
@@ -39,7 +41,7 @@ class Visitor extends Account implements DatabaseModel{
   }
 
   @override
-  Visitor fromJson(Map json){
+  Visitor fromJson(Map json) {
     if (json == null) return Visitor();
     return new Visitor(
       id: json['id'],
@@ -48,30 +50,33 @@ class Visitor extends Account implements DatabaseModel{
   }
 
   @override
-  Future<Visitor> fetch(String id) async{
-    DocumentSnapshot doc = await Database.getDocument(id, Database.visitorsCollection);
+  Future<Visitor> fetch(String id) async {
+    DocumentSnapshot doc =
+        await Database.getDocument(id, Database.visitorsCollection);
     return fromJson(doc.data);
   }
 
   @override
-  Future updateOrCreate() async{
+  Future updateOrCreate() async {
     await Database.setDocument(this, Database.visitorsCollection);
   }
 
   @override
-  Future<void> login() async{
+  Future<void> login() async {
     return await Authentication.login(this);
   }
+
   @override
-  Future<void> logout() async{
+  Future<void> logout() async {
     return await Authentication.signOut();
   }
+
   @override
-  Future<void> register() async{
+  Future<void> register() async {
     return await Authentication.register(this);
   }
 
-   @override
+  @override
   String getID() {
     return id;
   }

@@ -15,6 +15,7 @@ class FoodItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenIndex homeScreenIndexProvider = Provider.of<ScreenIndex>(context, listen: false);
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
@@ -31,7 +32,7 @@ class FoodItemCard extends StatelessWidget {
                   context: context,
                   msg: 'Added to Cart',
                   ontap: () {
-                    Provider.of<ScreenIndex>(context, listen: false).setScreenIndex(2);
+                   homeScreenIndexProvider.setScreenIndex(2);
                   }
                   );
               },

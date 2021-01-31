@@ -36,13 +36,11 @@ class SafeDineSnackBar {
               borderRadius: const BorderRadius.all(Radius.circular(8.0)),
               child: FlashBar(
                 shouldIconPulse: false,
-                icon: Icon(Icons.warning,
-                color: Colors.red,),
-                message: Text(message,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold
-                ),
+                message: Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
                 ),
                 actions: <Widget>[
                   Padding(
@@ -139,8 +137,9 @@ class SafeDineSnackBar {
         backgroundColor: color,
         borderRadius: BorderRadius.all(Radius.circular(5)),
         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-        margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+        margin: EdgeInsets.only(left: 20, right: 20, bottom: 15),
         child: FlashBar(
+          padding: EdgeInsets.symmetric(vertical: 13),
           primaryAction: InkWell(
             onTap: () {
               if (_previousController?.isDisposed == false)
@@ -165,6 +164,7 @@ class SafeDineSnackBar {
             padding: EdgeInsets.only(left: 15, right: 5),
             child: Icon(
               icon,
+              size: 20,
               color: Colors.white,
             ),
           ),

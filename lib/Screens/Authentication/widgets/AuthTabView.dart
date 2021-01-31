@@ -33,7 +33,6 @@ class _AuthPageViewState extends State<AuthPageView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
       child: Form(
@@ -77,7 +76,8 @@ class _AuthPageViewState extends State<AuthPageView> {
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           highlightColor: Colors.transparent,
-                          onTap: () {//TODO
+                          onTap: () {
+                            //TODO
                           },
                           child: Text(
                             'forgot password?',
@@ -111,8 +111,7 @@ class _AuthPageViewState extends State<AuthPageView> {
                 },
                 child: Text(
                   widget.textUnderButton,
-                  style: TextStyle(
-                      fontSize: 13),
+                  style: TextStyle(fontSize: 13),
                 )),
           ],
         ),
@@ -130,14 +129,18 @@ class _AuthPageViewState extends State<AuthPageView> {
         widget.buttonText == 'Login'
             ? await visitor.login()
             : await visitor.register();
-            Navigator.of(context).pop();
+        Navigator.of(context).pop();
       } on PlatformException catch (exception) {
         String msg = FirebaseException.generateReadableMessage(
             exception); //firebase exception happened
-        SafeDineSnackBar.showNotification(context: context, type: SnackbarType.Error, msg: msg);
+        SafeDineSnackBar.showNotification(
+            context: context, type: SnackbarType.Error, msg: msg);
         print(exception.toString());
       } catch (e) {
-        SafeDineSnackBar.showNotification(context: context, msg: 'Undefined error happened', type: SnackbarType.Error);
+        SafeDineSnackBar.showNotification(
+            context: context,
+            msg: 'Undefined error happened',
+            type: SnackbarType.Error);
       }
     }
     setState(() {
@@ -147,6 +150,6 @@ class _AuthPageViewState extends State<AuthPageView> {
   }
 
   hideKeyboard() {
-    FocusScope.of(context).unfocus();
+    FocusScope.of(context).requestFocus(FocusNode());
   }
 }

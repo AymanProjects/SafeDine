@@ -24,32 +24,28 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         ChangeNotifierProvider<ScreenIndex>(
           create: (context) => ScreenIndex(),
-          ),
+        ),
       ],
-      child:Builder(
-            builder: (context) => Consumer<ScreenIndex>(
-              builder: (context, screenIndex, _) =>
-              Scaffold(
-                key: Provider.of<HomeDrawerState>(context,listen: false).key,
-                drawerScrimColor: Colors.black12,
-                drawer: SafeDineDrawer(),
-                body:  Overlay(
+      child: Builder(
+          builder: (context) => Consumer<ScreenIndex>(
+                builder: (context, screenIndex, _) => Scaffold(
+                  key: Provider.of<HomeDrawerState>(context, listen: false).key,
+                  drawerScrimColor: Colors.black12,
+                  drawer: SafeDineDrawer(),
+                  body: Overlay(
                     initialEntries: [
                       OverlayEntry(builder: (overlayContext) {
-                        return IndexedStack(
-                          children: screens,
-                          index: screenIndex.index,
-                        );
+                        return screens[screenIndex.index];
                       }),
                     ],
                   ),
-              bottomNavigationBar: SafeDineBottomNavigation(),
-              ),
-          )),
+                  bottomNavigationBar: SafeDineBottomNavigation(),
+                ),
+              )),
     );
   }
 }
 
-class HomeDrawerState{
+class HomeDrawerState {
   final GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
 }

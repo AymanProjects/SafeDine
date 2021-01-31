@@ -3,9 +3,11 @@ import 'ItemDetails.dart';
 
 class Cart with ChangeNotifier {
   List<ItemDetails> _items;
+  String _note;
 
   Cart() {
     this._items = [];
+    _note = '';
   }
 
   void addToCart(ItemDetails item) {
@@ -33,8 +35,11 @@ class Cart with ChangeNotifier {
   }
 
   List<ItemDetails> getItems() => this._items;
+  String getNote() => this._note;
 
-
+  void setNote(String note) {
+    this._note = note;
+  }
 
   double getTotalPrice() {
     double total = 0.00;
@@ -42,5 +47,14 @@ class Cart with ChangeNotifier {
       total += itemDetails.getTotalSelectionPrice();
     });
     return total;
+  }
+
+  void updateCart() {
+    notifyListeners();
+  }
+
+  void clearCart() {
+    this._items.clear();
+    this._note = '';
   }
 }
