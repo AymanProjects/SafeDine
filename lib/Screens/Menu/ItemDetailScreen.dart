@@ -23,7 +23,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<AppTheme>(context).white,
+      backgroundColor: Provider.of<AppTheme>(context,listen: false).white,
       body: CustomScrollView(slivers: [
         SliverPersistentHeader(
           delegate: ItemDetailAppBar(
@@ -39,7 +39,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               details(),
               SizedBox(height: 20),
               Divider(
-                color: Provider.of<AppTheme>(context).grey,
+                color: Provider.of<AppTheme>(context,listen: false).grey,
               ),
               SizedBox(height: 10),
               Text(
@@ -50,7 +50,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               addOnsWidget(context),
               SizedBox(height: 10),
               Divider(
-                color: Provider.of<AppTheme>(context).grey,
+                color: Provider.of<AppTheme>(context,listen: false).grey,
               ),
               SizedBox(height: 10),
               Text(
@@ -120,7 +120,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           width: 30.w,
           height: 30.w,
           decoration: BoxDecoration(
-            color: Provider.of<AppTheme>(context).darkWhite,
+            color: Provider.of<AppTheme>(context,listen: false).darkWhite,
             borderRadius: BorderRadius.circular(3.w),
           ),
           child: Center(
@@ -144,7 +144,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           width: 30.w,
           height: 30.w,
           decoration: BoxDecoration(
-            color: Provider.of<AppTheme>(context).darkWhite,
+            color: Provider.of<AppTheme>(context,listen: false).darkWhite,
             borderRadius: BorderRadius.circular(3.w),
           ),
           child: Center(
@@ -182,7 +182,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                           value: widget.itemDetails
                               .getSelectedAddOns()
                               .contains(addOn),
-                          activeColor: Provider.of<AppTheme>(context).primary,
+                          activeColor: Provider.of<AppTheme>(context,listen: false).primary,
                           onChanged: (selected) {
                             setState(() {
                               if (selected)

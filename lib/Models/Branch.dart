@@ -2,7 +2,6 @@ import 'package:SafeDine/Services/Database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Interfaces/DatabaseModel.dart';
 
-
 class Branch implements DatabaseModel {
   String _restaurantID;
   String _name;
@@ -18,13 +17,13 @@ class Branch implements DatabaseModel {
   @override
   Future<Branch> fetch(String id) async {
     DocumentSnapshot doc =
-        await Database().getDocument(id, Database.branchesCollection);
+        await Database.getDocument(id, Database.branchesCollection);
     return fromJson(doc.data);
   }
 
   @override
   Future updateOrCreate() async {
-    await Database().setDocument(this, Database.branchesCollection);
+    await Database.setDocument(this, Database.branchesCollection);
   }
 
   @override
@@ -59,7 +58,7 @@ class Branch implements DatabaseModel {
 
   @override
   String getID() {
-    return id ?? '';
+    return id;
   }
 
   @override

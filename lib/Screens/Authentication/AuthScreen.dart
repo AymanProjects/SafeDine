@@ -30,7 +30,7 @@ class _AuthScreenState extends State<AuthScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<AppTheme>(context).white,
+      backgroundColor: Provider.of<AppTheme>(context,listen: false).white,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -74,11 +74,11 @@ class _AuthScreenState extends State<AuthScreen>
                                   controller: _tabController,
                                   indicatorSize: TabBarIndicatorSize.label,
                                   unselectedLabelColor:
-                                      Provider.of<AppTheme>(context).grey,
+                                      Provider.of<AppTheme>(context,listen: false).grey,
                                   labelColor:
-                                      Provider.of<AppTheme>(context).primary,
+                                      Provider.of<AppTheme>(context,listen: false).primary,
                                   indicatorColor:
-                                      Provider.of<AppTheme>(context).primary,
+                                      Provider.of<AppTheme>(context,listen: false).primary,
                                   indicatorPadding:
                                       EdgeInsets.fromLTRB(0, 0, 0, 0),
                                   labelPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),

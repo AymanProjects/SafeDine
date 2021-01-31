@@ -48,37 +48,34 @@ class Restaurant extends Account implements DatabaseModel{
 
   @override
   Future<Restaurant> fetch(String id) async{
-    DocumentSnapshot doc = await Database().getDocument(id, Database.restaurantsCollection);
+    DocumentSnapshot doc = await Database.getDocument(id, Database.restaurantsCollection);
     return fromJson(doc.data);
   }
 
   @override
   Future updateOrCreate() async{
-    await Database().setDocument(this, Database.restaurantsCollection);
+    await Database.setDocument(this, Database.restaurantsCollection);
   }
 
   Future addBranch(Branch branch) async{
-    await Database().setDocument(branch, Database.branchesCollection);
+    await Database.setDocument(branch, Database.branchesCollection);
   }
 
   Future deleteBranch(Branch branch) async{
-    await Database().deleteDocument(branch.id, Database.branchesCollection);
+    await Database.deleteDocument(branch.id, Database.branchesCollection);
   }
 
   @override
   Future<void> login() async{
-    final auth = Authentication();
-    return await auth.login(this);
+    return await Authentication.login(this);
   }
   @override
   Future<void> logout() async{
-    final auth = Authentication();
-    return await auth.signOut();
+    return await Authentication.signOut();
   }
   @override
   Future<void> register() async{
-    final auth = Authentication();
-    return await auth.register(this);
+    return await Authentication.register(this);
   }
 
   List<Category> getMenu() => _menu ?? [];
@@ -89,7 +86,7 @@ class Restaurant extends Account implements DatabaseModel{
 
    @override
   String getID() {
-    return id ?? '';
+    return id;
   }
 
   @override

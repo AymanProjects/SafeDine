@@ -18,8 +18,8 @@ class CategoryTabs extends StatelessWidget {
         child: TabBar(
           labelPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           indicatorSize: TabBarIndicatorSize.tab,
-          labelColor: Provider.of<AppTheme>(context).primary,
-          unselectedLabelColor: Provider.of<AppTheme>(context).grey,
+          labelColor: Provider.of<AppTheme>(context,listen: false).primary,
+          unselectedLabelColor: Provider.of<AppTheme>(context,listen: false).grey,
           isScrollable: true,
           tabs: restaurant.getMenu().map((category) {
             return tabItem(name: category.getName(), context: context);

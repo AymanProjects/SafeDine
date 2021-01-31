@@ -1,5 +1,6 @@
 import 'package:SafeDine/Services/Database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import '../Interfaces/DatabaseModel.dart';
 import 'ItemDetails.dart';
 
@@ -18,11 +19,14 @@ class Order implements DatabaseModel {
   String _status;
   String _visitorID;
   String _branchID;
+  String _restaurantName;
+  String _note;
   @override
   String id;
 
   Order(
       {String tableNumber,
+      String note,
       double totalPrice,
       String paymentType,
       String date,
@@ -30,8 +34,10 @@ class Order implements DatabaseModel {
       String visitorID,
       String branchID,
       String status,
-      String id}) {
+      String id,
+      String restaurantName}) {
     this.id = id;
+    this._note = note;
     this._tableNumber = tableNumber;
     this._totalPrice = totalPrice;
     this._paymentType = paymentType;
@@ -39,6 +45,8 @@ class Order implements DatabaseModel {
     this._itemDetails = itemDetails;
     this._visitorID = visitorID;
     this._branchID = branchID;
+    this._restaurantName = restaurantName;
+
     setStatus(status);
   }
 
@@ -56,6 +64,8 @@ class Order implements DatabaseModel {
       'status': getStatus(),
       'visitorID': getVisitorID(),
       'branchID': getBranchID(),
+      'restaurantName': getRestaurantName(),
+      'note': getNote(),
     };
   }
 
@@ -74,24 +84,28 @@ class Order implements DatabaseModel {
       status: json['status'],
       visitorID: json['visitorID'],
       branchID: json['branchID'],
+      restaurantName: json['restaurantName'],
+      note: json['note'],
     );
   }
 
   @override
   Future<Order> fetch(String id) async {
     DocumentSnapshot doc =
-        await Database().getDocument(id, Database.ordersCollection);
+        await Database.getDocument(id, Database.ordersCollection);
     return fromJson(doc.data);
   }
 
   @override
   Future updateOrCreate() async {
-    await Database().setDocument(this, Database.ordersCollection);
+    await Database.setDocument(this, Database.ordersCollection);
   }
 
   String getStatus() => _status ?? 'Unknown';
 
   String getBranchID() => _branchID ?? '';
+
+  String getNote() => _note ?? '';
 
   String getVisitorID() => _visitorID ?? '';
 
@@ -102,8 +116,13 @@ class Order implements DatabaseModel {
   String getPaymentType() => _paymentType ?? 'cash';
 
   double getTotalPrice() => _totalPrice ?? 0.00;
+  String getReadableDate() {
+    DateTime formattedDate = DateTime.parse(getDate());
+    return DateFormat('dd-MM-yyyy h:mm a').format(formattedDate);
+  }
 
   String getTableNumber() => _tableNumber ?? '';
+  String getRestaurantName() => _restaurantName ?? '';
 
   setTotalPrice(double value) {
     _totalPrice = value;
@@ -111,6 +130,13 @@ class Order implements DatabaseModel {
 
   setItemDetails(List<ItemDetails> value) {
     _itemDetails = value;
+  }
+
+  setRestaurantName(String value) {
+    _restaurantName = value;
+  }
+  setNote(String value) {
+    _note = value;
   }
 
   setStatus(String value) {
@@ -123,7 +149,7 @@ class Order implements DatabaseModel {
 
   @override
   String getID() {
-    return id ?? '';
+    return id;
   }
 
   @override

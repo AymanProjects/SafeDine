@@ -46,7 +46,7 @@ class ItemDetailAppBar extends SliverPersistentHeaderDelegate {
               margin: EdgeInsets.only(left: 25, top: 30),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Provider.of<AppTheme>(context).grey.withOpacity(0.5),
+                color: Provider.of<AppTheme>(context,listen: false).grey.withOpacity(0.5),
               ),
               child: IconButton(
                 onPressed: () {

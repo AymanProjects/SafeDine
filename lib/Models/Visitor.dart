@@ -15,18 +15,19 @@ class Visitor extends Account implements DatabaseModel{
 
   Future<void> placeOrder(Order order) async{
     try {
-      await Database().setDocument(order, Database.ordersCollection);
+      await Database.setDocument(order, Database.ordersCollection);
+      //TODO: payment
 //      if (payment != null) // if in-app payment is chosen
 //        await payment.pay();
     }catch(e){
-      Database().deleteDocument(order.id, Database.ordersCollection);
+      Database.deleteDocument(order.id, Database.ordersCollection);
       rethrow;
     }
   }
 
   Future<void> cancelOrder(Order order) async{
     order.setStatus(OrderStatus.Cancelled.toString());
-    await Database().setDocument(order, Database.ordersCollection);
+    await order.updateOrCreate();
   }
 
   @override
@@ -48,31 +49,31 @@ class Visitor extends Account implements DatabaseModel{
 
   @override
   Future<Visitor> fetch(String id) async{
-    DocumentSnapshot doc = await Database().getDocument(id, Database.visitorsCollection);
+    DocumentSnapshot doc = await Database.getDocument(id, Database.visitorsCollection);
     return fromJson(doc.data);
   }
 
   @override
   Future updateOrCreate() async{
-    await Database().setDocument(this, Database.visitorsCollection);
+    await Database.setDocument(this, Database.visitorsCollection);
   }
 
   @override
   Future<void> login() async{
-    return await Authentication().login(this);
+    return await Authentication.login(this);
   }
   @override
   Future<void> logout() async{
-    return await Authentication().signOut();
+    return await Authentication.signOut();
   }
   @override
   Future<void> register() async{
-    return await Authentication().register(this);
+    return await Authentication.register(this);
   }
 
    @override
   String getID() {
-    return id ?? '';
+    return id;
   }
 
   @override

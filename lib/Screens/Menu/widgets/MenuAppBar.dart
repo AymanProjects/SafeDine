@@ -26,7 +26,7 @@ class MenuAppBar extends StatelessWidget {
       child: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor:Provider.of<AppTheme>(context).white,
+        backgroundColor:Provider.of<AppTheme>(context,listen: false).white,
         title: Text(
           restaurant.getName(),
           style: TextStyle(

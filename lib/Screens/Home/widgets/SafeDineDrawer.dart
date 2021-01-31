@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:SafeDine/Models/Visitor.dart';
 import 'package:SafeDine/Screens/Authentication/AuthScreen.dart';
 import 'package:SafeDine/Services/Authentication.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
@@ -42,9 +43,7 @@ class SafeDineDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(CupertinoIcons.time),
                   title: Text('Order history'),
-                  onTap: () {
-
-                  },
+                  onTap: () {},
                 ),
                 // Divider(
                 //   thickness: 1,
@@ -86,6 +85,7 @@ class SafeDineDrawer extends StatelessWidget {
   }
 
   Widget logoutWidget(context) {
+  //  Visitor visitor = Provider.of<Visitor>(context, listen: false);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: SafeDineButton(
@@ -93,8 +93,7 @@ class SafeDineDrawer extends StatelessWidget {
         fontSize: 14,
         text: 'Logout',
         function: () {
-          Provider.of<Authentication>(context, listen: false).signOut();
-          Navigator.of(context).pop();
+     //     visitor.logout();
         },
       ),
     );

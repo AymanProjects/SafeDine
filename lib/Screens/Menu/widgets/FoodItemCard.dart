@@ -51,7 +51,7 @@ class FoodItemCard extends StatelessWidget {
                 spreadRadius: -1,
                 offset: Offset(0, 1))
           ],
-          color: Provider.of<AppTheme>(context).white,
+          color: Provider.of<AppTheme>(context,listen: false).white,
           borderRadius: BorderRadius.circular(7.w),
         ),
         child: Row(

@@ -4,13 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
 class Database {
-  
+  Database._();
   static String visitorsCollection = 'visitors';
   static String restaurantsCollection = 'restaurants';
   static String branchesCollection = 'branches';
   static String ordersCollection = 'orders';
 
-  Future<DocumentSnapshot> getDocument(String id, String collectionName) async {
+  static Future<DocumentSnapshot> getDocument(
+      String id, String collectionName) async {
     return await Firestore.instance
         .collection(collectionName)
         .document(id)
@@ -23,7 +24,8 @@ class Database {
     });
   }
 
-  Future<void> setDocument(DatabaseModel model, String collectionName) async {
+  static Future<void> setDocument(
+      DatabaseModel model, String collectionName) async {
     // 1. if object.id is null, this will generate a new id
     DocumentReference reference =
         Firestore.instance.collection(collectionName).document(model.id);
@@ -37,16 +39,22 @@ class Database {
         .setData(model.toJson(), merge: true);
   }
 
-  Future<void> deleteDocument(String id, String collectionName) async {
+  static Future<void> deleteDocument(String id, String collectionName) async {
     await Firestore.instance.collection(collectionName).document(id).delete();
   }
 
-    Stream<List<Order>> getOrdersOfVisitorWhere({String status, String visitorID}){
-    return Firestore.instance.collection(ordersCollection).where('visitorID', isEqualTo: visitorID).where('status', isEqualTo: status).orderBy('date')
-      .snapshots().map((QuerySnapshot snapshot) {
-        return snapshot.documents.map((doc) {
-          return Order().fromJson(doc.data);
-        }).toList();
-      });
+  static Stream<List<Order>> getOrdersOfVisitorWhere(
+      {String status, String visitorID}) {
+    return Firestore.instance
+        .collection(ordersCollection)
+        .where('visitorID', isEqualTo: visitorID)
+        .where('status', isEqualTo: status)
+        .orderBy('date')
+        .snapshots()
+        .map((QuerySnapshot snapshot) {
+      return snapshot.documents.map((doc) {
+        return Order().fromJson(doc.data);
+      }).toList();
+    });
   }
 }
