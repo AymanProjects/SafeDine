@@ -75,6 +75,10 @@ class Visitor extends Account implements DatabaseModel {
   Future<void> register() async {
     return await Authentication.register(this);
   }
+  @override
+  Future<void> forgotPassword() async {
+     await Authentication.forgotPassword(email: getEmail());
+  }
 
   @override
   String getID() {

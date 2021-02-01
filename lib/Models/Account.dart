@@ -14,6 +14,7 @@ abstract class Account {
   Future<void> login();
   Future<void> logout();
   Future<void> register();
+  Future<void> forgotPassword();
 
   String getName() => _name ?? '';
 

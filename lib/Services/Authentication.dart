@@ -40,4 +40,8 @@ class Authentication {
   static Future<void> signOut() async {
     return await _authInstance.signOut();
   }
+
+  static Future<void> forgotPassword({String email}) async {
+    await _authInstance.sendPasswordResetEmail(email: email);
+  }
 }

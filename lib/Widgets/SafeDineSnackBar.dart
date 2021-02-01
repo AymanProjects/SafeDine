@@ -1,4 +1,6 @@
 import 'package:SafeDine/Utilities/AppTheme.dart';
+import 'package:SafeDine/Utilities/Validations.dart';
+import 'package:SafeDine/Widgets/SafeDineField.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -176,5 +178,103 @@ class SafeDineSnackBar {
         persistent: false,
         transitionDuration: Duration(milliseconds: 400));
     _previousController.show();
+  }
+
+  //
+  static void showTextFieldDialog({
+    @required BuildContext context,
+    @required String message,
+    @required Widget positiveActionText,
+    @required Function positiveAction,
+    @required Widget negativeActionText,
+    @required Function negativeAction,
+  }) {
+    String textFieldValue = '';
+    final _formKey = GlobalKey<FormState>();
+    bool _loading = false;
+    showFlash(
+      transitionDuration: Duration(milliseconds: 200),
+      context: context,
+      persistent: false,
+      builder: (context, controller) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Flash.dialog(
+              enableDrag: true,
+              controller: controller,
+              margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+              child: FlashBar(
+                shouldIconPulse: false,
+                title: Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                message: Form(
+                  key: _formKey,
+                  child: SafeDineField(
+                    validator: (val) => Validations.emailValidation(val),
+                    hintText: 'Email',
+                    icon: Icon(Icons.email),
+                    onChanged: (value) {
+                      textFieldValue = value;
+                    },
+                  ),
+                ),
+                actions: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              if (negativeAction != null) negativeAction();
+                              if (controller?.isDisposed == false)
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                              controller.dismiss();
+                            },
+                            child: negativeActionText),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        _loading
+                            ? Container(
+                                margin: EdgeInsets.only(right: 5),
+                                height: 15,
+                                width: 15,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ))
+                            : InkWell(
+                                onTap: () async {
+                                  if (positiveAction != null) {
+                                    if (_formKey.currentState.validate()) {
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
+                                      setState(() {
+                                        _loading = true;
+                                      });
+                                      await positiveAction(
+                                          textFieldValue, controller);
+                                      setState(() {
+                                        _loading = false;
+                                      });
+                                    }
+                                  }
+                                },
+                                child: positiveActionText),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
