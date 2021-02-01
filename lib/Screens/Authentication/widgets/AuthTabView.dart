@@ -75,9 +75,17 @@ class _AuthPageViewState extends State<AuthPageView> {
                     child: Align(
                         alignment: Alignment.centerRight,
                         child: InkWell(
+                          child: Text(
+                            'forgot password?',
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Theme.of(context).primaryColor),
+                          ),
                           highlightColor: Colors.transparent,
                           onTap: () {
+  
                             SafeDineSnackBar.showTextFieldDialog(
+                              initialData: _email,
                               context: context,
                               message: 'Enter your email to receive a link.',
                               negativeActionText: Text(
@@ -99,9 +107,9 @@ class _AuthPageViewState extends State<AuthPageView> {
                                     controller.dismiss();
                                   }
                                   SafeDineSnackBar.showNotification(
-                                  context: context,
-                                  msg: 'Email has been sent  ✉️',
-                                  type: SnackbarType.Success,
+                                    context: context,
+                                    msg: 'Email has been sent  ✉️',
+                                    type: SnackbarType.Success,
                                   );
                                 } on PlatformException catch (e) {
                                   SafeDineSnackBar.showNotification(
@@ -114,12 +122,6 @@ class _AuthPageViewState extends State<AuthPageView> {
                               },
                             );
                           },
-                          child: Text(
-                            'forgot password?',
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: Theme.of(context).primaryColor),
-                          ),
                         )),
                   )
                 : SizedBox(),
@@ -170,7 +172,6 @@ class _AuthPageViewState extends State<AuthPageView> {
             exception); //firebase exception happened
         SafeDineSnackBar.showNotification(
             context: context, type: SnackbarType.Error, msg: msg);
-        print(exception.toString());
       } catch (e) {
         SafeDineSnackBar.showNotification(
             context: context,

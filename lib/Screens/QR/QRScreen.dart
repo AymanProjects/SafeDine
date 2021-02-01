@@ -116,7 +116,6 @@ class _QRScreenState extends State<QRScreen> {
         ),
       );
     } on PlatformException catch (exception) {
-      print(exception.toString());
       String msg;
       if (exception.code == MajaScan.CameraAccessDenied)
         msg = 'Camera permission is denied';
@@ -128,7 +127,6 @@ class _QRScreenState extends State<QRScreen> {
         type: SnackbarType.Error,
       );
     } catch (ex) {
-      print(ex.toString());
       SafeDineSnackBar.showNotification(
         msg: 'Incomplete scan, please try again',
         context: context,

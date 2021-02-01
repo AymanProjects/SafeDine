@@ -182,6 +182,7 @@ class SafeDineSnackBar {
 
   //
   static void showTextFieldDialog({
+    @required String initialData,
     @required BuildContext context,
     @required String message,
     @required Widget positiveActionText,
@@ -189,7 +190,7 @@ class SafeDineSnackBar {
     @required Widget negativeActionText,
     @required Function negativeAction,
   }) {
-    String textFieldValue = '';
+    String textFieldValue = initialData;
     final _formKey = GlobalKey<FormState>();
     bool _loading = false;
     showFlash(
@@ -209,12 +210,13 @@ class SafeDineSnackBar {
                 title: Text(
                   message,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                   ),
                 ),
                 message: Form(
                   key: _formKey,
                   child: SafeDineField(
+                    initialValue: initialData,
                     validator: (val) => Validations.emailValidation(val),
                     hintText: 'Email',
                     icon: Icon(Icons.email),
@@ -231,10 +233,10 @@ class SafeDineSnackBar {
                         InkWell(
                             onTap: () {
                               if (negativeAction != null) negativeAction();
-                              if (controller?.isDisposed == false)
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                              controller.dismiss();
+                              if (controller?.isDisposed == false) {
+                                controller.dismiss();
+                              }
+                              FocusScope.of(context).requestFocus(FocusNode());
                             },
                             child: negativeActionText),
                         SizedBox(

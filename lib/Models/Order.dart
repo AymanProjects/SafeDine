@@ -141,11 +141,7 @@ class Order implements DatabaseModel {
   }
 
   setStatus(String value) {
-    try {
-      if (value != null) _status = value.substring(value.indexOf('.') + 1);
-    } catch (e) {
-      print(e.toString());
-    }
+    if (value != null) _status = value.substring(value.indexOf('.') + 1);
   }
 
   @override
