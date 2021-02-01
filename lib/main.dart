@@ -1,6 +1,5 @@
 import 'package:SafeDine/Models/Cart.dart';
 import 'package:SafeDine/Models/Visitor.dart';
-import 'package:SafeDine/Screens/Home/HomeScreen.dart';
 import 'package:SafeDine/Screens/QR/QRScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +49,6 @@ class App extends StatelessWidget {
     return StreamBuilder<FirebaseUser>(
         stream: Authentication.getUserState(),
         builder: (context, snapshot) {
-          print('object');
           if (snapshot.hasData) {
             visitor.setID(snapshot.data.uid);
           } else
