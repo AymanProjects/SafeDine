@@ -95,7 +95,7 @@ class _QRScreenState extends State<QRScreen> {
       Restaurant restaurant =
           await Restaurant().fetch(branch.getRestaurantID());
 
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
         FadeRouteAnimation(
           page: MultiProvider(
@@ -110,7 +110,8 @@ class _QRScreenState extends State<QRScreen> {
                 create: (context) => TableNumber(qrAsJson['tableNumber']),
               ),
             ],
-            child: HomeScreen(),
+            child:
+                WillPopScope(onWillPop: () async => false, child: HomeScreen()),
           ),
         ),
       );
