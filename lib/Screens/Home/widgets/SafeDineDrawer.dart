@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:SafeDine/Models/Visitor.dart';
 import 'package:SafeDine/Screens/Authentication/AuthScreen.dart';
 import 'package:SafeDine/Screens/Home/widgets/DrawerTile.dart';
+import 'package:SafeDine/Screens/OrderHistory/OrderHistoryScreen.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/AppLogo.dart';
 import 'package:SafeDine/Widgets/SafeDineButton.dart';
@@ -47,10 +48,10 @@ class SafeDineDrawer extends StatelessWidget {
                   icon: CupertinoIcons.time,
                   onTap: () {
                     Navigator.of(context).pop();
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => OrderHistory()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OrderHistory()),
+                    );
                   },
                 ),
               ],

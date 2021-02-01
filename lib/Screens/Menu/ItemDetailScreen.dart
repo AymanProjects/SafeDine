@@ -55,25 +55,16 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                 color: Provider.of<AppTheme>(context).grey,
               ),
               SizedBox(height: 10),
-              Text(
-                'Additions',
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
               addOnsWidget(context),
-              SizedBox(height: 10),
-              Divider(
-                color: Provider.of<AppTheme>(context).grey,
-              ),
               SizedBox(height: 10),
               Text(
                 'Quantity',
                 style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               quantityWidget(context),
-              SizedBox(height: 110),
+              SizedBox(height: 130),
             ]),
           ),
         ),
@@ -178,39 +169,53 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
   }
 
   Widget addOnsWidget(context) {
+    if (widget.itemDetails.getItem().getAddOns().length < 1) return SizedBox();
     return Column(
-      children: widget.itemDetails
-          .getItem()
-          .getAddOns()
-          .asMap()
-          .map((index, addOn) => MapEntry(
-                index,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('${addOn.getName()}'),
+      children: [
+        Text(
+          'Additions',
+          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        Column(
+          children: widget.itemDetails
+              .getItem()
+              .getAddOns()
+              .asMap()
+              .map((index, addOn) => MapEntry(
+                    index,
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('${addOn.getPrice().toStringAsFixed(2)}'),
-                        Checkbox(
-                          value: tempSelectedAddOns.contains(addOn),
-                          activeColor: Provider.of<AppTheme>(context).primary,
-                          onChanged: (selected) {
-                            setState(() {
-                              if (selected)
-                                tempSelectedAddOns.add(addOn);
-                              else
-                                tempSelectedAddOns.remove(addOn);
-                            });
-                          },
+                        Text('${addOn.getName()}'),
+                        Row(
+                          children: [
+                            Text('${addOn.getPrice().toStringAsFixed(2)}'),
+                            Checkbox(
+                              value: tempSelectedAddOns.contains(addOn),
+                              activeColor:
+                                  Provider.of<AppTheme>(context).primary,
+                              onChanged: (selected) {
+                                setState(() {
+                                  if (selected)
+                                    tempSelectedAddOns.add(addOn);
+                                  else
+                                    tempSelectedAddOns.remove(addOn);
+                                });
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ))
-          .values
-          .toList(),
+                  ))
+              .values
+              .toList(),
+        ),
+        Divider(
+          color: Provider.of<AppTheme>(context).grey,
+        ),
+      ],
     );
   }
 

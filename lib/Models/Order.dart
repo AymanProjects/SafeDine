@@ -116,6 +116,7 @@ class Order implements DatabaseModel {
   String getPaymentType() => _paymentType ?? 'cash';
 
   double getTotalPrice() => _totalPrice ?? 0.00;
+  
   String getReadableDate() {
     DateTime formattedDate = DateTime.parse(getDate());
     return DateFormat('dd-MM-yyyy h:mm a').format(formattedDate);

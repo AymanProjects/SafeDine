@@ -1,7 +1,10 @@
+import 'package:SafeDine/Models/Branch.dart';
 import 'package:SafeDine/Models/Cart.dart';
 import 'package:SafeDine/Models/ItemDetails.dart';
 import 'package:SafeDine/Models/Order.dart';
+import 'package:SafeDine/Models/Restaurant.dart';
 import 'package:SafeDine/Models/Visitor.dart';
+import 'package:SafeDine/Providers/TableNumber.dart';
 import 'package:SafeDine/Screens/Authentication/AuthScreen.dart';
 import 'package:SafeDine/Screens/Cart/widgets/AddNoteField.dart';
 import 'package:SafeDine/Screens/Cart/widgets/CartItemCard.dart';
@@ -64,6 +67,10 @@ class _CartScreenState extends State<CartScreen> {
   Widget closureWidget() {
     final Cart cart = Provider.of<Cart>(context, listen: false);
     final visitor = Provider.of<Visitor>(context, listen: false);
+    final restaurant = Provider.of<Restaurant>(context, listen: false);
+    final branch = Provider.of<Branch>(context, listen: false);
+    final tableNumber = Provider.of<TableNumber>(context, listen: false);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 20),
       child: Column(
@@ -107,15 +114,14 @@ class _CartScreenState extends State<CartScreen> {
 
               if (visitor.getID() != null) {
                 // if signed in
-                // TODO: provide restaurant and branch
                 Order order = new Order(
                   note: cart.getNote(),
-                  restaurantName: 'KFC',
-                  branchID: '',
+                  restaurantName: restaurant.getName(),
+                  branchID: branch.getID(),
                   date: DateTime.now().toString(),
                   status: OrderStatus.BeingPrepared.toString(),
                   paymentType: _selectedPaymentIndex == 1 ? 'cash' : 'paypal',
-                  tableNumber: '7',
+                  tableNumber: tableNumber.number,
                   totalPrice: cart.getTotalPrice(),
                   visitorID: visitor.getID(),
                   itemDetails: cart.getItems(),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AppLogo extends StatelessWidget {
   final double size;
@@ -10,10 +11,11 @@ class AppLogo extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      child: Icon(
-      Icons.circle,
-      color: color,
-    ),
+      child: SvgPicture.asset(
+        'assets/svg_images/SafeDine.svg',
+        height: size,
+        color: color,
+      ),
     );
   }
 }

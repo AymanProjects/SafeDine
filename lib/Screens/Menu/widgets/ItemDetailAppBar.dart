@@ -23,7 +23,6 @@ class ItemDetailAppBar extends SliverPersistentHeaderDelegate {
           image: CachedNetworkImageProvider(item.getUrl()),
           fit: BoxFit.cover,
         ),
-
         ClipRRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(
@@ -35,7 +34,6 @@ class ItemDetailAppBar extends SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,10 +41,13 @@ class ItemDetailAppBar extends SliverPersistentHeaderDelegate {
             Container(
               width: 30,
               height: 30,
-              margin: EdgeInsets.only(left: 25, top: 30),
+              margin: EdgeInsets.only(
+                  left: 15, top: MediaQuery.of(context).padding.top + 10),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Provider.of<AppTheme>(context,listen: false).grey.withOpacity(0.5),
+                color: Provider.of<AppTheme>(context, listen: false)
+                    .grey
+                    .withOpacity(0.5),
               ),
               child: IconButton(
                 onPressed: () {
@@ -59,7 +60,6 @@ class ItemDetailAppBar extends SliverPersistentHeaderDelegate {
             ),
           ],
         ),
-
         Column(
           children: [
             Container(
@@ -78,8 +78,6 @@ class ItemDetailAppBar extends SliverPersistentHeaderDelegate {
             ),
           ],
         ),
-        //   Text('button'),
-        //  Align(alignment: Alignment.center, child: Text('name')),
       ],
     );
   }

@@ -12,6 +12,8 @@ class Database {
 
   static Future<DocumentSnapshot> getDocument(
       String id, String collectionName) async {
+    if (id == null || id.isEmpty) // id should neither be embty nor null
+      throw new PlatformException(code: "Document not found");
     return await Firestore.instance
         .collection(collectionName)
         .document(id)
@@ -49,6 +51,19 @@ class Database {
         .collection(ordersCollection)
         .where('visitorID', isEqualTo: visitorID)
         .where('status', isEqualTo: status)
+        .orderBy('date')
+        .snapshots()
+        .map((QuerySnapshot snapshot) {
+      return snapshot.documents.map((doc) {
+        return Order().fromJson(doc.data);
+      }).toList();
+    });
+  }
+
+  static Stream<List<Order>> getAllOrdersOfVisitor({String visitorID}) {
+    return Firestore.instance
+        .collection(ordersCollection)
+        .where('visitorID', isEqualTo: visitorID)
         .orderBy('date')
         .snapshots()
         .map((QuerySnapshot snapshot) {

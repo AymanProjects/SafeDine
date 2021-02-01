@@ -18,7 +18,7 @@ class AddOn {
     if (json == null) return AddOn();
     return new AddOn(
       name: json['name'],
-      price: json['price'],
+      price: json['price'] + .0, // convert to double if it was int :)
     );
   }
 

@@ -36,7 +36,7 @@ class FoodItem {
     if (json == null) return FoodItem();
     return new FoodItem(
       name: json['name'],
-      price: json['price'],
+      price: json['price'] + .0, // convert to double if it was int
       description: json['description'],
       addOns: json['addOns']?.map<AddOn>((json) {
             return AddOn().fromJson(json);
