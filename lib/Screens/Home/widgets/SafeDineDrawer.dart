@@ -54,6 +54,14 @@ class SafeDineDrawer extends StatelessWidget {
                     );
                   },
                 ),
+                DrawerTile(
+                  text: 'Call waiter',
+                  icon: Icons.notifications_outlined,
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    //TODO: call waiter
+                  },
+                ),
               ],
             ),
             Column(

@@ -2,7 +2,6 @@ import 'package:SafeDine/Models/Order.dart';
 import 'package:SafeDine/Models/Visitor.dart';
 import 'package:SafeDine/Screens/OrderProgress/widgets/OrderCard.dart';
 import 'package:SafeDine/Services/Database.dart';
-import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/GlobalScaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,20 +20,6 @@ class _OrderProgressScreenState extends State<OrderProgressScreen> {
 
     return GlobalScaffold(
       hasDrawer: true,
-      actionButtton: Builder(
-        builder: (context) => InkWell(
-            onTap: () {
-              //TODO: call waiter
-            },
-            child: Row(
-              children: [
-                Text("Call Waiter",
-                    style: TextStyle(
-                        color: Provider.of<AppTheme>(context).primary,
-                        fontSize: 14)),
-              ],
-            )),
-      ),
       title: 'Order Progress',
       body: visitor.getID() != null
           ? getUserOrder(context: context, userID: visitor.getID())
