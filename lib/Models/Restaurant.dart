@@ -78,6 +78,11 @@ class Restaurant extends Account implements DatabaseModel{
     return await Authentication.register(this);
   }
 
+  @override
+  Future<void> forgotPassword() async {
+     await Authentication.forgotPassword(email: getEmail());
+  }
+
   List<Category> getMenu() => _menu ?? [];
 
   setMenu(List<Category> value) {
@@ -94,4 +99,3 @@ class Restaurant extends Account implements DatabaseModel{
     this.id = id;
   }
 }
-

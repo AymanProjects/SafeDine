@@ -33,6 +33,7 @@ dependencies:
   font_awesome_flutter: ^8.11.0
   flutter_svg: 0.19.0
   majascan: 0.3.7
+  intl: ^0.16.1
   cupertino_icons: ^1.0.0
 
 dev_dependencies:

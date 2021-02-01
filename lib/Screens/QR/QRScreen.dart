@@ -65,21 +65,12 @@ class _QRScreenState extends State<QRScreen> {
                         ),
                       ],
                     ),
-                    _loading
-                        ? Container(
-                            height: 30,
-                            width: 30,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3,
-                              backgroundColor: Theme.of(context).primaryColor,
-                            ),
-                          )
-                        : SafeDineButton(
-                            text: 'Scan QR Code',
-                            function: () => _buttonPress(context),
-                            loading: _loading,
-                            fontSize: 16.sp,
-                          ),
+                    SafeDineButton(
+                      text: 'Scan QR Code',
+                      function: () => _buttonPress(context),
+                      loading: _loading,
+                      fontSize: 16.sp,
+                    )
                   ],
                 ),
               ),

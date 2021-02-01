@@ -77,7 +77,42 @@ class _AuthPageViewState extends State<AuthPageView> {
                         child: InkWell(
                           highlightColor: Colors.transparent,
                           onTap: () {
-                            //TODO
+                            SafeDineSnackBar.showTextFieldDialog(
+                              context: context,
+                              message: 'Enter your email to receive a link.',
+                              negativeActionText: Text(
+                                'Cancel',
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              negativeAction: () {
+                                Navigator.pop(context);
+                              },
+                              positiveActionText: Text(
+                                'Reset Password',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                              positiveAction: (email, controller) async {
+                                try {
+                                  await Visitor(email: email).forgotPassword();
+                                  if (controller?.isDisposed == false) {
+                                    controller.dismiss();
+                                  }
+                                  SafeDineSnackBar.showNotification(
+                                  context: context,
+                                  msg: 'Email has been sent  ✉️',
+                                  type: SnackbarType.Success,
+                                  );
+                                } on PlatformException catch (e) {
+                                  SafeDineSnackBar.showNotification(
+                                    type: SnackbarType.Error,
+                                    context: context,
+                                    msg: FirebaseException
+                                        .generateReadableMessage(e),
+                                  );
+                                }
+                              },
+                            );
                           },
                           child: Text(
                             'forgot password?',
