@@ -15,7 +15,8 @@ class FoodItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenIndex homeScreenIndexProvider = Provider.of<ScreenIndex>(context, listen: false);
+    ScreenIndex homeScreenIndexProvider =
+        Provider.of<ScreenIndex>(context, listen: false);
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
@@ -23,18 +24,16 @@ class FoodItemCard extends StatelessWidget {
             return ItemDetailScreen(
               itemDetails: itemDetails,
               buttonText: 'Add to Cart',
-              buttonFunction: () {
+              buttonFunction: (ItemDetails modfiedItemDetails) {
                 Provider.of<Cart>(context, listen: false)
-                    .addToCart(itemDetails);
+                    .addToCart(modfiedItemDetails);
                 SafeDineSnackBar.showNotification(
-
-                  type: SnackbarType.CartNotification,
-                  context: context,
-                  msg: 'Added to Cart',
-                  ontap: () {
-                   homeScreenIndexProvider.setScreenIndex(2);
-                  }
-                  );
+                    type: SnackbarType.CartNotification,
+                    context: context,
+                    msg: 'Added to Cart',
+                    ontap: () {
+                      homeScreenIndexProvider.setScreenIndex(2);
+                    });
               },
             );
           },
@@ -52,7 +51,7 @@ class FoodItemCard extends StatelessWidget {
                 spreadRadius: -1,
                 offset: Offset(0, 1))
           ],
-          color: Provider.of<AppTheme>(context,listen: false).white,
+          color: Provider.of<AppTheme>(context, listen: false).white,
           borderRadius: BorderRadius.circular(7.w),
         ),
         child: Row(

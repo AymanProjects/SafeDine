@@ -106,9 +106,11 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           fontSize: 14,
           function: () {
             if (widget.buttonFunction != null) {
-              widget.itemDetails.setQuantity(tempQuantity);
-              widget.itemDetails.setSelectedAddOns(tempSelectedAddOns);
-              widget.buttonFunction();
+              ItemDetails modifiedItemDetials = ItemDetails();
+              modifiedItemDetials.setItem(widget.itemDetails.getItem());
+              modifiedItemDetials.setQuantity(tempQuantity);
+              modifiedItemDetials.setSelectedAddOns(tempSelectedAddOns);
+              widget.buttonFunction(modifiedItemDetials);
             }
             Navigator.pop(context);
           },
