@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:SafeDine/Models/Branch.dart';
 import 'package:SafeDine/Models/Restaurant.dart';
+import 'package:SafeDine/Models/Visitor.dart';
 import 'package:SafeDine/Providers/TableNumber.dart';
 import 'package:SafeDine/Screens/Home/HomeScreen.dart';
 import 'package:SafeDine/Services/FirebaseException.dart';
@@ -10,7 +12,6 @@ import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:majascan/majascan.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -82,16 +83,22 @@ class _QRScreenState extends State<QRScreen> {
   }
 
   void _buttonPress(context) async {
-    Map qrAsJson = {'branchID': 'MNk7koNiG36Vhaxk8KOG', 'tableNumber': '5'};
+    setState(() {
+      _loading = true;
+    });
+    dynamic decodedResult = {
+      'branchID': 'MNk7koNiG36Vhaxk8KOG',
+      'tableNumber': '5'
+    };
     try {
-      // String result = await _scanQR(context);
-      // qrAsJson = jsonDecode(result);
+      // String result = await Visitor().scanQR();
+      // if (result == null) throw FormatException();
+      // if (result.isEmpty) throw PlatformException(code: 'cancelled');
 
-      setState(() {
-        _loading = true;
-      });
+     // decodedResult = jsonDecode(result);
+      if (!(decodedResult is Map<dynamic, dynamic>)) throw FormatException();
 
-      Branch branch = await Branch().fetch(qrAsJson['branchID']);
+      Branch branch = await Branch().fetch(decodedResult['branchID']);
       Restaurant restaurant =
           await Restaurant().fetch(branch.getRestaurantID());
 
@@ -107,7 +114,7 @@ class _QRScreenState extends State<QRScreen> {
                 value: restaurant,
               ),
               Provider<TableNumber>(
-                create: (context) => TableNumber(qrAsJson['tableNumber']),
+                create: (context) => TableNumber(decodedResult['tableNumber']),
               ),
             ],
             child:
@@ -117,8 +124,8 @@ class _QRScreenState extends State<QRScreen> {
       );
     } on PlatformException catch (exception) {
       String msg;
-      if (exception.code == MajaScan.CameraAccessDenied)
-        msg = 'Camera permission is denied';
+      if (exception.code == 'cancelled')
+        msg = 'Incomplete scan, please try again';
       else
         msg = FirebaseException.generateReadableMessage(exception);
       SafeDineSnackBar.showNotification(
@@ -126,9 +133,9 @@ class _QRScreenState extends State<QRScreen> {
         context: context,
         type: SnackbarType.Error,
       );
-    } catch (ex) {
+    } on FormatException catch (exception) {
       SafeDineSnackBar.showNotification(
-        msg: 'Incomplete scan, please try again',
+        msg: 'QR code is invalid',
         context: context,
         type: SnackbarType.Warning,
       );
@@ -137,14 +144,5 @@ class _QRScreenState extends State<QRScreen> {
     setState(() {
       _loading = false;
     });
-  }
-
-  Future<String> _scanQR(context) async {
-    return await MajaScan.startScan(
-      title: "Scanning...",
-      titleColor: Colors.white,
-      qRCornerColor: Colors.white,
-      qRScannerColor: Colors.white,
-    );
   }
 }

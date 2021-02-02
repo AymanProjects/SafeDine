@@ -1,6 +1,8 @@
 import 'package:SafeDine/Services/Authentication.dart';
 import 'package:SafeDine/Services/Database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:majascan/majascan.dart';
 import 'Account.dart';
 import '../Interfaces/DatabaseModel.dart';
 import 'Order.dart';
@@ -30,6 +32,19 @@ class Visitor extends Account implements DatabaseModel {
   Future<void> cancelOrder(Order order) async {
     order.setStatus(OrderStatus.Cancelled.toString());
     await order.updateOrCreate();
+  }
+
+  Future<String> scanQR() async {
+    return await MajaScan.startScan(
+      title: "Scanning...",
+      titleColor: Colors.white,
+      qRCornerColor: Colors.white,
+      qRScannerColor: Colors.white,
+    );
+  }
+
+  Future<void> callWaiter() {
+    //TODO
   }
 
   @override
@@ -75,9 +90,10 @@ class Visitor extends Account implements DatabaseModel {
   Future<void> register() async {
     return await Authentication.register(this);
   }
+
   @override
   Future<void> forgotPassword() async {
-     await Authentication.forgotPassword(email: getEmail());
+    await Authentication.forgotPassword(email: getEmail());
   }
 
   @override

@@ -33,9 +33,12 @@ dependencies:
   cached_network_image: ^2.5.0
   font_awesome_flutter: ^8.11.0
   flutter_svg: 0.19.0
-  majascan: 0.3.7
   intl: ^0.16.1
   cupertino_icons: ^1.0.0
+  majascan:
+    git:
+      url: https://github.com/maja0270558/majascan_flutter.git
+      ref: master
 
 dev_dependencies:
   flutter_test:
