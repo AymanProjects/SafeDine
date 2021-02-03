@@ -51,7 +51,7 @@ class Database {
         .collection(ordersCollection)
         .where('visitorID', isEqualTo: visitorID)
         .where('status', isEqualTo: status)
-        .orderBy('date')
+        .orderBy('date', descending: true)
         .snapshots()
         .map((QuerySnapshot snapshot) {
       return snapshot.documents.map((doc) {
@@ -64,7 +64,7 @@ class Database {
     return Firestore.instance
         .collection(ordersCollection)
         .where('visitorID', isEqualTo: visitorID)
-        .orderBy('date')
+        .orderBy('date', descending: true)
         .snapshots()
         .map((QuerySnapshot snapshot) {
       return snapshot.documents.map((doc) {
