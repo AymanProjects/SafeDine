@@ -32,53 +32,47 @@ class _QRScreenState extends State<QRScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Overlay(
-      initialEntries: [
-        OverlayEntry(
-          builder: (context) => Scaffold(
-              body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-            child: Center(
-              child: Container(
-                height: 450.h,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/svg_images/scan.svg',
-                          height: 160.w,
-                          semanticsLabel: 'Logo',
-                        ),
-                        SizedBox(
-                          height: 40.h,
-                        ),
-                        Text(
-                          'Start by clicking the button and scan the QR code found in restaurant to download food menu.',
-                          style: TextStyle(
-                              color:
-                                  Provider.of<AppTheme>(context, listen: false)
-                                      .grey,
-                              fontSize: 14),
-                          textAlign: TextAlign.center,
-                          softWrap: true,
-                        ),
-                      ],
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50.0),
+        child: Center(
+          child: Container(
+            height: 450.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/svg_images/scan.svg',
+                      height: 160.w,
+                      semanticsLabel: 'Logo',
                     ),
-                    SafeDineButton(
-                      text: 'Scan QR Code',
-                      function: () => _buttonPress(context),
-                      loading: _loading,
-                      fontSize: 16.sp,
-                    )
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    Text(
+                      'Start by clicking the button and scan the QR code found in restaurant to download food menu.',
+                      style: TextStyle(
+                          color: Provider.of<AppTheme>(context, listen: false)
+                              .grey,
+                          fontSize: 14),
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                    ),
                   ],
                 ),
-              ),
+                SafeDineButton(
+                  text: 'Scan QR Code',
+                  function: () => _buttonPress(context),
+                  loading: _loading,
+                  fontSize: 16.sp,
+                )
+              ],
             ),
-          )),
+          ),
         ),
-      ],
+      ),
     );
   }
 
@@ -95,7 +89,7 @@ class _QRScreenState extends State<QRScreen> {
       // if (result == null) throw FormatException();
       // if (result.isEmpty) throw PlatformException(code: 'cancelled');
 
-     // decodedResult = jsonDecode(result);
+      // decodedResult = jsonDecode(result);
       if (!(decodedResult is Map<dynamic, dynamic>)) throw FormatException();
 
       Branch branch = await Branch().fetch(decodedResult['branchID']);

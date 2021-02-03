@@ -1,21 +1,26 @@
 import 'dart:ui';
 
+import 'package:SafeDine/Models/Branch.dart';
 import 'package:SafeDine/Models/Visitor.dart';
+import 'package:SafeDine/Providers/TableNumber.dart';
 import 'package:SafeDine/Screens/Authentication/AuthScreen.dart';
 import 'package:SafeDine/Screens/Home/widgets/DrawerTile.dart';
 import 'package:SafeDine/Screens/OrderHistory/OrderHistoryScreen.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/AppLogo.dart';
 import 'package:SafeDine/Widgets/SafeDineButton.dart';
+import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class SafeDineDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Branch branch = Provider.of<Branch>(context, listen: false);
+    TableNumber tableNumber = Provider.of<TableNumber>(context, listen: false);
     return Container(
       width: MediaQuery.of(context).size.width * 0.7,
       child: Stack(children: [
@@ -57,9 +62,23 @@ class SafeDineDrawer extends StatelessWidget {
                 DrawerTile(
                   text: 'Call waiter',
                   icon: Icons.notifications_outlined,
-                  onTap: () {
+                  onTap: () async {
+                    try {
+                      await Visitor().callWaiter(branch.getID(),
+                          'Help needed at table ' + tableNumber.number + '!');
+                      SafeDineSnackBar.showNotification(
+                        type: SnackbarType.Success,
+                        context: context,
+                        msg: 'Your request was sent to the waiter',
+                      );
+                    } on PlatformException catch (exception) {
+                      SafeDineSnackBar.showNotification(
+                        type: SnackbarType.Error,
+                        context: context,
+                        msg: 'Couldn\'t send your request',
+                      );
+                    }
                     Navigator.of(context).pop();
-                    //TODO: call waiter
                   },
                 ),
               ],

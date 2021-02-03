@@ -1,4 +1,4 @@
-import 'package:SafeDine/Screens/Home/HomeScreen.dart';
+import 'package:SafeDine/Providers/HomeDrawerState.dart';
 import 'package:SafeDine/Screens/Menu/widgets/DrawerIcon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

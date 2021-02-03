@@ -134,7 +134,7 @@ class _CartScreenState extends State<CartScreen> {
                   SafeDineSnackBar.showNotification(
                     duration: 2,
                     context: context,
-                    msg: 'Order sent 👍',
+                    msg: 'Order sent  👍',
                     type: SnackbarType.Success,
                   );
                   Provider.of<ScreenIndex>(context, listen: false)
@@ -150,13 +150,6 @@ class _CartScreenState extends State<CartScreen> {
                     duration: 2,
                     context: context,
                     msg: errorMsg,
-                    type: SnackbarType.Error,
-                  );
-                } on WebResourceError catch (_) {
-                  SafeDineSnackBar.showNotification(
-                    duration: 2,
-                    context: context,
-                    msg: 'Network error happend',
                     type: SnackbarType.Error,
                   );
                 }

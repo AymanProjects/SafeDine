@@ -29,127 +29,114 @@ class _AuthScreenState extends State<AuthScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Overlay(
-      initialEntries: [
-        OverlayEntry(
-          builder: (context) => Scaffold(
-            backgroundColor:
-                Provider.of<AppTheme>(context, listen: false).white,
-            body: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: 150,
-                      child: Padding(
-                          padding: EdgeInsets.only(top: 0),
-                          child: AppLogo(
-                            color: Provider.of<AppTheme>(context, listen: false)
-                                .primary,
-                            size: 80,
-                          )),
-                    ),
-                    Container(
-                        width: double.infinity,
-                        height: (MediaQuery.of(context).size.height -
-                                MediaQuery.of(context).padding.top) *
-                            0.65,
-                        child: DefaultTabController(
-                          length: 2,
-                          child: Scaffold(
-                            resizeToAvoidBottomInset: false,
+    return Scaffold(
+      backgroundColor: Provider.of<AppTheme>(context, listen: false).white,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                height: 150,
+                child: Padding(
+                    padding: EdgeInsets.only(top: 0),
+                    child: AppLogo(
+                      color:
+                          Provider.of<AppTheme>(context, listen: false).primary,
+                      size: 80,
+                    )),
+              ),
+              Container(
+                  width: double.infinity,
+                  height: (MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.65,
+                  child: DefaultTabController(
+                    length: 2,
+                    child: Scaffold(
+                      resizeToAvoidBottomInset: false,
+                      backgroundColor: Colors.transparent,
+                      appBar: PreferredSize(
+                        preferredSize: Size.fromHeight(30),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          child: AppBar(
+                            automaticallyImplyLeading: false,
+                            centerTitle: true,
+                            primary: false,
+                            titleSpacing: 0,
                             backgroundColor: Colors.transparent,
-                            appBar: PreferredSize(
-                              preferredSize: Size.fromHeight(30),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 40),
-                                child: AppBar(
-                                  automaticallyImplyLeading: false,
-                                  centerTitle: true,
-                                  primary: false,
-                                  titleSpacing: 0,
-                                  backgroundColor: Colors.transparent,
-                                  elevation: 0,
-                                  title: PreferredSize(
-                                    preferredSize: Size.fromHeight(0),
-                                    child: Align(
-                                      alignment: Alignment.topLeft,
-                                      child: TabBar(
-                                        controller: _tabController,
-                                        indicatorSize:
-                                            TabBarIndicatorSize.label,
-                                        unselectedLabelColor:
-                                            Provider.of<AppTheme>(context,
-                                                    listen: false)
-                                                .grey,
-                                        labelColor: Provider.of<AppTheme>(
-                                                context,
-                                                listen: false)
-                                            .primary,
-                                        indicatorColor: Provider.of<AppTheme>(
-                                                context,
-                                                listen: false)
-                                            .primary,
-                                        indicatorPadding:
-                                            EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                        labelPadding:
-                                            EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                        isScrollable: true,
-                                        labelStyle: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                        tabs: <Widget>[
-                                          Tab(
-                                            child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                'Login     ',
-                                                textAlign: TextAlign.left,
-                                              ),
-                                            ),
-                                          ),
-                                          Tab(
-                                            child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                'Register  ',
-                                                textAlign: TextAlign.left,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                            elevation: 0,
+                            title: PreferredSize(
+                              preferredSize: Size.fromHeight(0),
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: TabBar(
+                                  controller: _tabController,
+                                  indicatorSize: TabBarIndicatorSize.label,
+                                  unselectedLabelColor: Provider.of<AppTheme>(
+                                          context,
+                                          listen: false)
+                                      .grey,
+                                  labelColor: Provider.of<AppTheme>(context,
+                                          listen: false)
+                                      .primary,
+                                  indicatorColor: Provider.of<AppTheme>(context,
+                                          listen: false)
+                                      .primary,
+                                  indicatorPadding:
+                                      EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                  labelPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                  isScrollable: true,
+                                  labelStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                  tabs: <Widget>[
+                                    Tab(
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Login     ',
+                                          textAlign: TextAlign.left,
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                    Tab(
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Register  ',
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                            body: TabBarView(
-                              controller: _tabController,
-                              children: <Widget>[
-                                AuthPageView(
-                                    tabController: _tabController,
-                                    buttonText: 'Login',
-                                    textUnderButton:
-                                        'Don\'t have an account? Register'),
-                                AuthPageView(
-                                    tabController: _tabController,
-                                    buttonText: 'Register',
-                                    textUnderButton:
-                                        'Already have an account? Login')
-                              ],
-                            ),
                           ),
-                        )),
-                  ],
-                ),
-              ),
-            ),
+                        ),
+                      ),
+                      body: TabBarView(
+                        controller: _tabController,
+                        children: <Widget>[
+                          AuthPageView(
+                              tabController: _tabController,
+                              buttonText: 'Login',
+                              textUnderButton:
+                                  'Don\'t have an account? Register'),
+                          AuthPageView(
+                              tabController: _tabController,
+                              buttonText: 'Register',
+                              textUnderButton: 'Already have an account? Login')
+                        ],
+                      ),
+                    ),
+                  )),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

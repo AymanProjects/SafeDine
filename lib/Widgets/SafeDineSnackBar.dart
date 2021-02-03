@@ -85,7 +85,7 @@ class SafeDineSnackBar {
       Function ontap,
       String actionName = 'Dismiss',
       Function onActionTap,
-      int duration = 3}) {
+      int duration = 4}) {
     Color color;
     IconData icon;
     bool dismissOnClick = false;
@@ -135,52 +135,50 @@ class SafeDineSnackBar {
       return Flash(
         controller: controller,
         onTap: ontap,
-        style: FlashStyle.floating,
         backgroundColor: color,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-        margin: EdgeInsets.only(left: 20, right: 20, bottom: 15),
         child: FlashBar(
-          padding: EdgeInsets.symmetric(vertical: 13),
-          primaryAction: InkWell(
-            onTap: () {
-              if (_previousController?.isDisposed == false)
-                _previousController.dismiss();
-              onActionTap();
-            },
-            child: Container(
-              height: double.infinity,
-              padding: EdgeInsets.only(right: 10),
-              child: Center(
-                  child: Text(actionName,
-                      style: TextStyle(
-                          color: Colors.black.withOpacity(0.45),
-                          fontWeight: FontWeight.bold))),
-            ),
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+          message: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    icon,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                  SizedBox(width: 16),
+                  Text(
+                    msg,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+              InkWell(
+                onTap: () {
+                  if (_previousController?.isDisposed == false)
+                    _previousController.dismiss();
+                  onActionTap();
+                },
+                child: Text(
+                  actionName,
+                  style: TextStyle(
+                      color: Colors.black.withOpacity(0.45),
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
           ),
-          message: Text(
-            msg,
-            style: TextStyle(color: Colors.white),
-          ),
-          icon: Padding(
-            padding: EdgeInsets.only(left: 15, right: 5),
-            child: Icon(
-              icon,
-              size: 20,
-              color: Colors.white,
-            ),
-          ),
-          shouldIconPulse: false,
         ),
       );
     },
         duration: Duration(seconds: duration),
-        persistent: false,
+        persistent: true,
         transitionDuration: Duration(milliseconds: 400));
     _previousController.show();
   }
 
-  //
   static void showTextFieldDialog({
     @required String initialData,
     @required BuildContext context,

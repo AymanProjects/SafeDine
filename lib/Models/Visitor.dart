@@ -1,5 +1,6 @@
 import 'package:SafeDine/Services/Authentication.dart';
 import 'package:SafeDine/Services/Database.dart';
+import 'package:SafeDine/Services/Notifications.dart';
 import 'package:SafeDine/Services/PayPal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +20,12 @@ class Visitor extends Account implements DatabaseModel {
 
   Future<void> placeOrder({Order order, BuildContext context}) async {
     try {
-      if (order.getPaymentType() == 'paypal') await PayPal.pay(context, order);
-
+      // first, store the order in database
       await Database.setDocument(order, Database.ordersCollection);
+      // then, if paypal used -> pay
+      if (order.getPaymentType() == 'paypal') await PayPal.pay(context, order);
     } catch (e) {
+      // if something goes wrong, delete the order
       Database.deleteDocument(order.id, Database.ordersCollection);
       rethrow;
     }
@@ -42,8 +45,11 @@ class Visitor extends Account implements DatabaseModel {
     );
   }
 
-  Future<void> callWaiter() {
-    //TODO
+  Future<void> callWaiter(String branchID, String message) async {
+    await Notifications.sendNotificationTo(
+      branchID: branchID,
+      message: message,
+    );
   }
 
   @override
