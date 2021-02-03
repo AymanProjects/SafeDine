@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:webview_flutter/platform_interface.dart';
 
 import 'widgets/PaymentMethodSelection.dart';
 
@@ -128,7 +129,7 @@ class _CartScreenState extends State<CartScreen> {
                 );
 
                 try {
-                  await visitor.placeOrder(order);
+                  await visitor.placeOrder(context: context, order: order);
                   cart.clearCart();
                   SafeDineSnackBar.showNotification(
                     duration: 2,
@@ -138,18 +139,26 @@ class _CartScreenState extends State<CartScreen> {
                   );
                   Provider.of<ScreenIndex>(context, listen: false)
                       .setScreenIndex(0);
-                } on PlatformException catch (e) {
+                } on PlatformException catch (exception) {
+                  String errorMsg;
+                  if (exception.code == 'paymentCancelled')
+                    errorMsg = 'Payment was cancelled';
+                  else
+                    errorMsg =
+                        FirebaseException.generateReadableMessage(exception);
                   SafeDineSnackBar.showNotification(
                     duration: 2,
                     context: context,
-                    msg: FirebaseException.generateReadableMessage(e),
+                    msg: errorMsg,
                     type: SnackbarType.Error,
                   );
-                } catch (e) {
+                } on WebResourceError catch (_) {
                   SafeDineSnackBar.showNotification(
-                      context: context,
-                      msg: 'Undefined error happened',
-                      type: SnackbarType.Error);
+                    duration: 2,
+                    context: context,
+                    msg: 'Network error happend',
+                    type: SnackbarType.Error,
+                  );
                 }
               } else {
                 Navigator.push(

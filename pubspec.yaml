@@ -39,6 +39,7 @@ dependencies:
     git:
       url: https://github.com/maja0270558/majascan_flutter.git
       ref: master
+  webview_flutter: ^1.0.7
 
 dev_dependencies:
   flutter_test:

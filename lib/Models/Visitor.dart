@@ -1,5 +1,6 @@
 import 'package:SafeDine/Services/Authentication.dart';
 import 'package:SafeDine/Services/Database.dart';
+import 'package:SafeDine/Services/PayPal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:majascan/majascan.dart';
@@ -16,13 +17,11 @@ class Visitor extends Account implements DatabaseModel {
     this.id = id;
   }
 
-  Future<void> placeOrder(Order order) async {
+  Future<void> placeOrder({Order order, BuildContext context}) async {
     try {
-      //TODO: payment
-      if (order.getPaymentType() == 'paypal')
-        print('paypal');
-      else if (order.getPaymentType() == 'cash')
-        await Database.setDocument(order, Database.ordersCollection);
+      if (order.getPaymentType() == 'paypal') await PayPal.pay(context, order);
+
+      await Database.setDocument(order, Database.ordersCollection);
     } catch (e) {
       Database.deleteDocument(order.id, Database.ordersCollection);
       rethrow;

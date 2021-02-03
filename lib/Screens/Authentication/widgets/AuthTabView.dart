@@ -83,11 +83,10 @@ class _AuthPageViewState extends State<AuthPageView> {
                           ),
                           highlightColor: Colors.transparent,
                           onTap: () {
-  
                             SafeDineSnackBar.showTextFieldDialog(
                               initialData: _email,
                               context: context,
-                              message: 'Enter your email to receive a link.',
+                              message: 'Enter your email to receive a link',
                               negativeActionText: Text(
                                 'Cancel',
                                 style: TextStyle(color: Colors.grey),
@@ -96,7 +95,7 @@ class _AuthPageViewState extends State<AuthPageView> {
                                 Navigator.pop(context);
                               },
                               positiveActionText: Text(
-                                'Reset Password',
+                                'Send',
                                 style: TextStyle(
                                     color: Theme.of(context).primaryColor),
                               ),

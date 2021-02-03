@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Builder(
           builder: (context) => Consumer<ScreenIndex>(
                 builder: (context, screenIndex, _) => Scaffold(
+                  drawerEdgeDragWidth: 30,
                   key: Provider.of<HomeDrawerState>(context, listen: false).key,
                   drawerScrimColor: Colors.black12,
                   drawer: SafeDineDrawer(),
