@@ -81,7 +81,7 @@ class _QRScreenState extends State<QRScreen> {
       _loading = true;
     });
     dynamic decodedResult = {
-      'branchID': 'MNk7koNiG36Vhaxk8KOG',
+      'branchID': 'iWRz5HaXVa16ckOXS2kI',//MNk7koNiG36Vhaxk8KOG
       'tableNumber': '5'
     };
     try {
