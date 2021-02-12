@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 
 class PaymentMethodSelection extends StatefulWidget {
   final Function onMethodChanged;
@@ -21,7 +19,7 @@ class _PaymentMethodSelectionState extends State<PaymentMethodSelection> {
       children: [
         Text(
           "Payment Method",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
         ),
         paymentMethod(
             name: 'Cash',

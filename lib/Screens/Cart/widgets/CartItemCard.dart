@@ -6,7 +6,6 @@ import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class CartItemCard extends StatelessWidget {
@@ -19,136 +18,134 @@ class CartItemCard extends StatelessWidget {
     final cart = Provider.of<Cart>(context, listen: false);
 
     return InkWell(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(
-              builder: (_) {
-                return ItemDetailScreen(
-                  itemDetails: itemDetails,
-                  buttonText: 'Update',
-                  buttonFunction: () {
-                    cart.updateCart();
-                  },
-                );
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (_) {
+            return ItemDetailScreen(
+              itemDetails: itemDetails,
+              buttonText: 'Update',
+              buttonFunction: () {
+                cart.updateCart();
               },
-            ));
+            );
           },
-          child: Stack(children: [
-            Container(
-              height: 80.w,
-              width: double.infinity,
-              padding: EdgeInsets.all(10.w),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      spreadRadius: -1,
-                      offset: Offset(0, 2)),
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(7.w),
+        ));
+      },
+      child: Stack(children: [
+        Container(
+          height: 90,
+          width: double.infinity,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  spreadRadius: -1,
+                  offset: Offset(0, 2)),
+            ],
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(7),
+          ),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(7)),
+                child: Container(
+                    width: 70,
+                    height: double.infinity,
+                    child: CachedNetworkImage(
+                      imageUrl: itemDetails.getItem().getUrl(),
+                      fit: BoxFit.cover,
+                    )),
               ),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(7.w)),
-                    child: Container(
-                        width: 65.w,
-                        height: double.infinity,
-                        child: CachedNetworkImage(
-                          imageUrl: itemDetails.getItem().getUrl(),
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              itemDetails.getItem().getName(),
-                              style: TextStyle(
-                                fontSize: 18.sp,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: 6.w,
-                            ),
-                            Text(
-                                getSelectedAddOnNames(
-                                    itemDetails.getSelectedAddOns()),
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Provider.of<AppTheme>(context,
-                                          listen: false)
-                                      .grey,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                          ],
+                        Text(
+                          itemDetails.getItem().getName(),
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w500),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          height: 3,
                         ),
                         Text(
-                            'SAR ${itemDetails.getTotalSelectionPrice().toStringAsFixed(2)}',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              color: Theme.of(context).primaryColor,
-                            ),
+                          getSelectedAddOnNames(
+                              itemDetails.getSelectedAddOns()),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Provider.of<AppTheme>(context, listen: false)
+                                .grey,
                           ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
                     ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          cart.removeFromCart(itemDetails);
-
-                          SafeDineSnackBar.showNotification(
-                            type: SnackbarType.Error,
-                            context: context,
-                            msg: "Item Removed",
-                            actionName: 'Undo',
-                            onActionTap: () {
-                              cart.addToCart(itemDetails);
-                            },
-                          );
-                        },
-                        child: Icon(
-                          Icons.clear,
-                          size: 20.0,
-                        ),
+                    Text(
+                      'SAR ${itemDetails.getTotalSelectionPrice().toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).primaryColor,
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      cart.removeFromCart(itemDetails);
+
+                      SafeDineSnackBar.showNotification(
+                        type: SnackbarType.Error,
+                        context: context,
+                        msg: "Item Removed",
+                        actionName: 'Undo',
+                        onActionTap: () {
+                          cart.addToCart(itemDetails);
+                        },
+                      );
+                    },
+                    child: Icon(
+                      Icons.clear,
+                      size: 20.0,
+                    ),
                   ),
                 ],
               ),
+            ],
+          ),
+        ),
+        Container(
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+            color: Colors.red,
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: Text(
+              '${itemDetails.getQuantity()}',
+              style: TextStyle(fontSize: 12, color: Colors.white),
             ),
-            Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(
-                    '${itemDetails.getQuantity()}',
-                    style: TextStyle(fontSize: 14.sp, color: Colors.white),
-                  ),
-              ),
-            ),
-          ]),
-        );
+          ),
+        ),
+      ]),
+    );
   }
 
   String getSelectedAddOnNames(List<AddOn> addOns) {

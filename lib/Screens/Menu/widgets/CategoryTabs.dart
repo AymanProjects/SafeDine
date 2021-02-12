@@ -2,7 +2,6 @@ import 'package:SafeDine/Models/Restaurant.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 class CategoryTabs extends StatelessWidget {
@@ -12,14 +11,15 @@ class CategoryTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 15.w, right: 15.w),
+      padding: EdgeInsets.only(left: 15, right: 15),
       child: Align(
         alignment: Alignment.centerLeft,
         child: TabBar(
           labelPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           indicatorSize: TabBarIndicatorSize.tab,
-          labelColor: Provider.of<AppTheme>(context,listen: false).primary,
-          unselectedLabelColor: Provider.of<AppTheme>(context,listen: false).grey,
+          labelColor: Provider.of<AppTheme>(context, listen: false).primary,
+          unselectedLabelColor:
+              Provider.of<AppTheme>(context, listen: false).grey,
           isScrollable: true,
           tabs: restaurant.getMenu().map((category) {
             return tabItem(name: category.getName(), context: context);
@@ -27,10 +27,10 @@ class CategoryTabs extends StatelessWidget {
           indicator: MaterialIndicator(
             height: 2,
             color: Theme.of(context).primaryColor,
-            bottomLeftRadius: 20.w,
-            bottomRightRadius: 20.w,
-            topLeftRadius: 20.w,
-            topRightRadius: 20.w,
+            bottomLeftRadius: 20,
+            bottomRightRadius: 20,
+            topLeftRadius: 20,
+            topRightRadius: 20,
           ),
         ),
       ),
@@ -42,7 +42,7 @@ class CategoryTabs extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           name,
-          style: TextStyle(fontSize: 16.sp),
+          style: TextStyle(fontSize: 14),
         ));
   }
 }

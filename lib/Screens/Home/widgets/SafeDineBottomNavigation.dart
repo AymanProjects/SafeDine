@@ -1,7 +1,6 @@
 import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'ScreenIndex.dart';
 
@@ -24,37 +23,27 @@ class _SafeDineBottomNavigationState extends State<SafeDineBottomNavigation> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           bottomBarItem(
-              index: 0,
-              size: 25.h,
-              icon: Icons.hourglass_empty,
-              context: context),
+              index: 0, icon: Icons.hourglass_empty, context: context),
           bottomBarItem(
-              index: 1,
-              size: 25.h,
-              icon: CupertinoIcons.doc_plaintext,
-              context: context),
-          bottomBarItem(
-              index: 2,
-              size: 25.h,
-              icon: CupertinoIcons.cart,
-              context: context),
+              index: 1, icon: CupertinoIcons.doc_plaintext, context: context),
+          bottomBarItem(index: 2, icon: CupertinoIcons.cart, context: context),
         ],
       ),
     );
   }
 
-  Widget bottomBarItem({int index, context, IconData icon, double size}) {
+  Widget bottomBarItem({int index, context, IconData icon}) {
     ScreenIndex selectedScreenIndex =
         Provider.of<ScreenIndex>(context, listen: false);
     bool isSelected = (selectedScreenIndex.index == index);
     return Align(
       alignment: isSelected ? Alignment.topCenter : Alignment.center,
       child: Padding(
-        padding: isSelected ? EdgeInsets.only(top: 5.w) : EdgeInsets.zero,
+        padding: isSelected ? EdgeInsets.only(top: 5) : EdgeInsets.zero,
         child: FlatButton(
           child: Icon(
             icon,
-            size: size,
+            size: 23,
             color: isSelected
                 ? Theme.of(context).primaryColor
                 : Provider.of<AppTheme>(context, listen: false).grey,

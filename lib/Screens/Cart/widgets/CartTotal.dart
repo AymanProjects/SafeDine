@@ -3,20 +3,21 @@ import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CartSubtotal extends StatelessWidget {
+class CartTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Cart cart = Provider.of<Cart>(context, listen: false);
+    const double TAX = 0.15;
 
     double totalBeforeTax =
-        cart.getTotalPrice() - ((cart.getTotalPrice() / (1 + 0.15)) * 0.15);
+        cart.getTotalPrice() - ((cart.getTotalPrice() / (1 + TAX)) * TAX);
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Order total',
+              'Subtotal',
               style: TextStyle(fontSize: 14),
             ),
             Text(
@@ -33,7 +34,7 @@ class CartSubtotal extends StatelessWidget {
               style: TextStyle(fontSize: 14),
             ),
             Text(
-              'SAR ${(totalBeforeTax * 0.15).toStringAsFixed(2)}',
+              'SAR ${(totalBeforeTax * TAX).toStringAsFixed(2)}',
               style: TextStyle(fontSize: 14),
             ),
           ],
@@ -45,7 +46,7 @@ class CartSubtotal extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Subtotal',
+              'Total',
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
             Text(

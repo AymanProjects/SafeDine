@@ -2,7 +2,6 @@ import 'package:SafeDine/Models/Category.dart';
 import 'package:SafeDine/Models/ItemDetails.dart';
 import 'package:SafeDine/Models/Restaurant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'FoodItemCard.dart';
 
@@ -22,13 +21,17 @@ class CategoryTabView extends StatelessWidget {
 
   Widget categoryItems(Category category) {
     return ListView.separated(
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       separatorBuilder: (context, _) => Container(
         height: 10,
       ),
       itemCount: category.getItems().length,
       itemBuilder: (context, index) {
-        return FoodItemCard(itemDetails: ItemDetails(item: category.getItems()[index], quantity: 1, selectedAddOns: []) );
+        return FoodItemCard(
+            itemDetails: ItemDetails(
+                item: category.getItems()[index],
+                quantity: 1,
+                selectedAddOns: []));
       },
     );
   }

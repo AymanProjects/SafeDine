@@ -41,7 +41,7 @@ class SafeDineSnackBar {
                 message: Text(
                   message,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
                 actions: <Widget>[
@@ -174,7 +174,7 @@ class SafeDineSnackBar {
       );
     },
         duration: Duration(seconds: duration),
-        persistent: true,
+        persistent: false,
         transitionDuration: Duration(milliseconds: 400));
     _previousController.show();
   }
