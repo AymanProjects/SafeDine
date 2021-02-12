@@ -8,7 +8,7 @@ import 'package:SafeDine/Providers/TableNumber.dart';
 import 'package:SafeDine/Screens/Authentication/AuthScreen.dart';
 import 'package:SafeDine/Screens/Cart/widgets/AddNoteField.dart';
 import 'package:SafeDine/Screens/Cart/widgets/CartItemCard.dart';
-import 'package:SafeDine/Screens/Cart/widgets/CartSubtotal.dart';
+import 'package:SafeDine/Screens/Cart/widgets/CartTotal.dart';
 import 'package:SafeDine/Screens/Home/widgets/ScreenIndex.dart';
 import 'package:SafeDine/Services/FirebaseException.dart';
 import 'package:SafeDine/Widgets/GlobalScaffold.dart';
@@ -17,9 +17,6 @@ import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:webview_flutter/platform_interface.dart';
-
 import 'widgets/PaymentMethodSelection.dart';
 
 class CartScreen extends StatefulWidget {
@@ -48,7 +45,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget showCartItems(List<ItemDetails> items) {
     return Expanded(
       child: ListView.separated(
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 0),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
         separatorBuilder: (context, _) => Container(
           height: 10,
         ),
@@ -67,16 +64,18 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget closureWidget() {
     final Cart cart = Provider.of<Cart>(context, listen: false);
-    final visitor = Provider.of<Visitor>(context, listen: false);
-    final restaurant = Provider.of<Restaurant>(context, listen: false);
-    final branch = Provider.of<Branch>(context, listen: false);
-    final tableNumber = Provider.of<TableNumber>(context, listen: false);
+    final Visitor visitor = Provider.of<Visitor>(context, listen: false);
+    final Restaurant restaurant =
+        Provider.of<Restaurant>(context, listen: false);
+    final Branch branch = Provider.of<Branch>(context, listen: false);
+    final TableNumber tableNumber =
+        Provider.of<TableNumber>(context, listen: false);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
       child: Column(
         children: [
-          CartSubtotal(),
+          CartTotal(),
           SizedBox(
             height: 20,
           ),

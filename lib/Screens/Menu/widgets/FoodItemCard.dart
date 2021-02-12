@@ -7,7 +7,6 @@ import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FoodItemCard extends StatelessWidget {
   final ItemDetails itemDetails;
@@ -40,9 +39,9 @@ class FoodItemCard extends StatelessWidget {
         ));
       },
       child: Container(
-        height: 110.w,
+        height: 110,
         width: double.infinity,
-        padding: EdgeInsets.all(10.w),
+        padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -52,14 +51,14 @@ class FoodItemCard extends StatelessWidget {
                 offset: Offset(0, 1))
           ],
           color: Provider.of<AppTheme>(context, listen: false).white,
-          borderRadius: BorderRadius.circular(7.w),
+          borderRadius: BorderRadius.circular(7),
         ),
         child: Row(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(7.w)),
+              borderRadius: BorderRadius.all(Radius.circular(7)),
               child: Container(
-                  width: 90.w,
+                  width: 90,
                   height: double.infinity,
                   child: CachedNetworkImage(
                     imageUrl: itemDetails.getItem().getUrl(),
@@ -67,7 +66,7 @@ class FoodItemCard extends StatelessWidget {
                   )),
             ),
             SizedBox(
-              width: 10.w,
+              width: 12,
             ),
             Expanded(
               child: Column(
@@ -76,23 +75,24 @@ class FoodItemCard extends StatelessWidget {
                   Text(
                     itemDetails.getItem().getName(),
                     style: TextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
-                    height: 3.w,
+                    height: 4,
                   ),
                   Text(
                     itemDetails.getItem().getDescription(),
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       color: Provider.of<AppTheme>(context, listen: false).grey,
                     ),
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
-                    maxLines: 4,
+                    maxLines: 3,
                   ),
                 ],
               ),
@@ -103,7 +103,7 @@ class FoodItemCard extends StatelessWidget {
                 Text(
                   'SAR ${itemDetails.getItem().getPrice().toStringAsFixed(2)}',
                   style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 11,
                     color: Theme.of(context).primaryColor,
                     fontFamily: 'meduim',
                   ),

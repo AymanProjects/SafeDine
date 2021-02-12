@@ -5,7 +5,6 @@ import 'package:SafeDine/Services/Database.dart';
 import 'package:SafeDine/Widgets/GlobalScaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class OrderProgressScreen extends StatefulWidget {
@@ -46,7 +45,7 @@ class _OrderProgressScreenState extends State<OrderProgressScreen> {
   Widget showActiveOrders(List<Order> activeOrders) {
     return Expanded(
       child: ListView.separated(
-        padding: EdgeInsets.all(15.w),
+        padding: EdgeInsets.all(15),
         separatorBuilder: (context, _) => Container(
           height: 20,
         ),

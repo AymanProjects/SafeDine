@@ -1,94 +1,39 @@
-import 'dart:ui';
 import 'package:SafeDine/Models/FoodItem.dart';
-import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class ItemDetailAppBar extends SliverPersistentHeaderDelegate {
-  final double expandedHeight, collapsedHeight;
+class ItemDetailAppBar extends StatelessWidget {
   final FoodItem item;
-
-  ItemDetailAppBar(
-      {@required this.expandedHeight, this.item, this.collapsedHeight});
+  ItemDetailAppBar({this.item});
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Stack(
-      fit: StackFit.expand,
-      overflow: Overflow.visible,
-      children: [
-        Image(
-          image: CachedNetworkImageProvider(item.getUrl()),
-          fit: BoxFit.cover,
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      elevation: 0,
+      pinned: true,
+      expandedHeight: 160,
+      leading: Container(
+        margin: EdgeInsets.all(13),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.grey.withOpacity(0.4),
         ),
-        ClipRRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-                sigmaX: (shrinkOffset / expandedHeight) * 5,
-                sigmaY: (shrinkOffset / expandedHeight) * 5),
-            child: Container(
-              alignment: Alignment.center,
-              color: Colors.transparent,
-            ),
+        child: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.clear_rounded,
+            size: 22,
           ),
+          color: Colors.white,
+          padding: EdgeInsets.zero,
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 30,
-              height: 30,
-              margin: EdgeInsets.only(
-                  left: 15, top: MediaQuery.of(context).padding.top + 10),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Provider.of<AppTheme>(context, listen: false)
-                    .grey
-                    .withOpacity(0.5),
-              ),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.clear_rounded, size: 22),
-                color: Colors.white,
-                padding: EdgeInsets.zero,
-              ),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 33),
-              child: Opacity(
-                opacity: shrinkOffset / expandedHeight,
-                child: Text(
-                  item.getName(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 23,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
+      ),
+      flexibleSpace: Image(
+        image: CachedNetworkImageProvider(item.getUrl()),
+        fit: BoxFit.cover,
+      ),
     );
   }
-
-  @override
-  double get maxExtent => expandedHeight;
-
-  @override
-  double get minExtent => collapsedHeight;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      true;
 }

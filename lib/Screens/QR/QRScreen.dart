@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class QRScreen extends StatefulWidget {
   @override
@@ -34,10 +33,10 @@ class _QRScreenState extends State<QRScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Center(
           child: Container(
-            height: 450.h,
+            height: 450,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -45,11 +44,11 @@ class _QRScreenState extends State<QRScreen> {
                   children: [
                     SvgPicture.asset(
                       'assets/svg_images/scan.svg',
-                      height: 160.w,
+                      height: 160,
                       semanticsLabel: 'Logo',
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 40,
                     ),
                     Text(
                       'Start by clicking the button and scan the QR code found in restaurant to download food menu.',
@@ -66,7 +65,7 @@ class _QRScreenState extends State<QRScreen> {
                   text: 'Scan QR Code',
                   function: () => _buttonPress(context),
                   loading: _loading,
-                  fontSize: 16.sp,
+                  //   fontSize: 15,
                 )
               ],
             ),
@@ -90,7 +89,7 @@ class _QRScreenState extends State<QRScreen> {
       // if (result.isEmpty) throw PlatformException(code: 'cancelled');
 
       // decodedResult = jsonDecode(result);
-      if (!(decodedResult is Map<dynamic, dynamic>)) throw FormatException();
+      // if (!(decodedResult is Map<dynamic, dynamic>)) throw FormatException();
 
       Branch branch = await Branch().fetch(decodedResult['branchID']);
       Restaurant restaurant =

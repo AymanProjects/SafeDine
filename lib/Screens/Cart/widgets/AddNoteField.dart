@@ -20,7 +20,7 @@ class AddNoteField extends StatelessWidget {
         height: 90,
         child: SafeDineField(
           initialValue: savedValue,
-          hintText: 'Add notes to order...',
+          hintText: 'Add notes to the order...',
           enabled: true,
           maxLines: 3,
           onChanged: (note) {

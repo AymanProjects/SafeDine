@@ -6,7 +6,6 @@ import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/GlobalScaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderHistory extends StatelessWidget {
   @override
@@ -41,7 +40,7 @@ class OrderHistory extends StatelessWidget {
   Widget showHistoryOrders(List<Order> orders) {
     return Expanded(
       child: ListView.separated(
-        padding: EdgeInsets.only(right: 15.w, left: 15.w, top: 15, bottom: 85),
+        padding: EdgeInsets.only(right: 15, left: 15, top: 15, bottom: 15),
         separatorBuilder: (context, _) => Container(
           height: 20,
         ),
@@ -68,7 +67,7 @@ class OrderHistory extends StatelessWidget {
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(7.w),
+            borderRadius: BorderRadius.circular(7),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +77,7 @@ class OrderHistory extends StatelessWidget {
                 children: [
                   Text("#$index ${order.getStatus()}",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         color: Colors.black,
                       )),
                   Text(
@@ -96,7 +95,7 @@ class OrderHistory extends StatelessWidget {
               Text(
                 "Order Details:",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                 ),
               ),
               SizedBox(
@@ -107,7 +106,7 @@ class OrderHistory extends StatelessWidget {
                 child: Text(
                   getItemsName(order.getItemDetails()),
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 14,
                     color: Provider.of<AppTheme>(context).grey,
                   ),
                 ),

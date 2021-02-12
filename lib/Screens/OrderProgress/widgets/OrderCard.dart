@@ -6,7 +6,6 @@ import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class OrderCard extends StatelessWidget {
@@ -20,7 +19,7 @@ class OrderCard extends StatelessWidget {
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(7.w),
+        borderRadius: BorderRadius.circular(7),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +29,7 @@ class OrderCard extends StatelessWidget {
             children: [
               Text("Being prepared",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue[700],
                   )),
@@ -49,7 +48,7 @@ class OrderCard extends StatelessWidget {
           Text(
             "Order Details:",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 14,
             ),
           ),
           SizedBox(
@@ -60,7 +59,7 @@ class OrderCard extends StatelessWidget {
             child: Text(
               getItemsNames(order.getItemDetails()),
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 color: Provider.of<AppTheme>(context).grey,
               ),
             ),

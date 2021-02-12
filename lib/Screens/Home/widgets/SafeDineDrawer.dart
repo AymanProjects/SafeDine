@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:SafeDine/Models/Branch.dart';
 import 'package:SafeDine/Models/Visitor.dart';
 import 'package:SafeDine/Providers/TableNumber.dart';
@@ -14,7 +13,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SafeDineDrawer extends StatelessWidget {
   @override
@@ -40,13 +38,13 @@ class SafeDineDrawer extends StatelessWidget {
           children: [
             Column(
               children: [
-                SizedBox(height: 55.h),
+                SizedBox(height: 55),
                 AppLogo(
-                  size: 90.h,
+                  size: 90,
                   color: Provider.of<AppTheme>(context, listen: false).primary,
                 ),
                 SizedBox(
-                  height: 30.h,
+                  height: 30,
                 ),
                 DrawerTile(
                   text: 'Order history',
@@ -66,6 +64,7 @@ class SafeDineDrawer extends StatelessWidget {
                     try {
                       await Visitor().callWaiter(branch.getID(),
                           'Help needed at table ' + tableNumber.number + '!');
+                      Navigator.of(context).pop();
                       SafeDineSnackBar.showNotification(
                         type: SnackbarType.Success,
                         context: context,
@@ -78,7 +77,6 @@ class SafeDineDrawer extends StatelessWidget {
                         msg: 'Couldn\'t send your request',
                       );
                     }
-                    Navigator.of(context).pop();
                   },
                 ),
               ],
@@ -87,11 +85,11 @@ class SafeDineDrawer extends StatelessWidget {
               children: [
                 authBotton(context),
                 SizedBox(
-                  height: 10.h,
+                  height: 10,
                 ),
                 Text('Version 1.0.0'),
                 SizedBox(
-                  height: 15.h,
+                  height: 15,
                 ),
               ],
             ),
@@ -114,7 +112,7 @@ class SafeDineDrawer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: SafeDineButton(
         color: Colors.green,
-        fontSize: 14.sp,
+        fontSize: 14,
         text: 'Login',
         function: () {
           Navigator.of(context).pop();
@@ -135,11 +133,16 @@ class SafeDineDrawer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: SafeDineButton(
         color: Colors.redAccent,
-        fontSize: 14.sp,
+        fontSize: 14,
         text: 'Logout',
         function: () {
           visitor.logout();
           Navigator.of(context).pop();
+          SafeDineSnackBar.showNotification(
+            type: SnackbarType.Warning,
+            context: context,
+            msg: 'Logged out',
+          );
         },
       ),
     );

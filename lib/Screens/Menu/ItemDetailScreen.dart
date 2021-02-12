@@ -4,7 +4,6 @@ import 'package:SafeDine/Screens/Menu/widgets/ItemDetailAppBar.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/SafeDineButton.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class ItemDetailScreen extends StatefulWidget {
@@ -37,38 +36,34 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Provider.of<AppTheme>(context).white,
-      body: CustomScrollView(slivers: [
-        SliverPersistentHeader(
-          delegate: ItemDetailAppBar(
-              expandedHeight: 180.h,
-              item: widget.itemDetails.getItem(),
-              collapsedHeight: 100),
-          pinned: true,
-        ),
-        SliverPadding(
-          padding: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
-          sliver: SliverList(
-            delegate: SliverChildListDelegate([
-              details(),
-              SizedBox(height: 20),
-              Divider(
-                color: Provider.of<AppTheme>(context).grey,
-              ),
-              SizedBox(height: 10),
-              addOnsWidget(context),
-              SizedBox(height: 10),
-              Text(
-                'Quantity',
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 20),
-              quantityWidget(context),
-              SizedBox(height: 130),
-            ]),
+      body: CustomScrollView(
+        slivers: [
+          ItemDetailAppBar(item: widget.itemDetails.getItem()),
+          SliverPadding(
+            padding: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                details(),
+                SizedBox(height: 20),
+                Divider(
+                  color: Provider.of<AppTheme>(context).grey,
+                ),
+                SizedBox(height: 10),
+                addOnsWidget(context),
+                SizedBox(height: 10),
+                Text(
+                  'Quantity',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                quantityWidget(context),
+                SizedBox(height: 130),
+              ]),
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
       floatingActionButton: bottomButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -80,13 +75,13 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
       children: [
         Text(
           '${widget.itemDetails.getItem().getName()}',
-          style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
         ),
         SizedBox(
           height: 5,
         ),
         Text('${widget.itemDetails.getItem().getDescription()}',
-            style: TextStyle(fontSize: 14.sp, color: Colors.grey[700])),
+            style: TextStyle(fontSize: 14, color: Colors.grey[700])),
       ],
     );
   }
@@ -103,7 +98,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
         child: SafeDineButton(
           text:
               '${widget.buttonText} SAR ${getTempSelectionPrice().toStringAsFixed(2)}',
-          fontSize: 14,
+          fontSize: 15,
           function: () {
             if (widget.buttonFunction != null) {
               ItemDetails modifiedItemDetials = ItemDetails();
@@ -124,11 +119,11 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: 30.w,
-          height: 30.w,
+          width: 30,
+          height: 30,
           decoration: BoxDecoration(
             color: Provider.of<AppTheme>(context).darkWhite,
-            borderRadius: BorderRadius.circular(3.w),
+            borderRadius: BorderRadius.circular(3),
           ),
           child: Center(
             child: IconButton(
@@ -143,16 +138,16 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 30.w),
+          margin: EdgeInsets.symmetric(horizontal: 35),
           child: Text('$tempQuantity',
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         ),
         Container(
-          width: 30.w,
-          height: 30.w,
+          width: 30,
+          height: 30,
           decoration: BoxDecoration(
             color: Provider.of<AppTheme>(context).darkWhite,
-            borderRadius: BorderRadius.circular(3.w),
+            borderRadius: BorderRadius.circular(3),
           ),
           child: Center(
             child: IconButton(
@@ -176,7 +171,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
       children: [
         Text(
           'Additions',
-          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         Column(
