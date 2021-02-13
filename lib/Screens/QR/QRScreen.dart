@@ -79,14 +79,17 @@ class _QRScreenState extends State<QRScreen> {
     setState(() {
       _loading = true;
     });
-    dynamic decodedResult;
+    dynamic decodedResult = {
+      'branchID': 'iWRz5HaXVa16ckOXS2kI',//MNk7koNiG36Vhaxk8KOG
+      'tableNumber': '5'
+    };
     try {
-      String result = await Visitor().scanQR();
-      if (result == null) throw FormatException();
-      if (result.isEmpty) throw PlatformException(code: 'cancelled');
+      // String result = await Visitor().scanQR();
+      // if (result == null) throw FormatException();
+      // if (result.isEmpty) throw PlatformException(code: 'cancelled');
 
-      decodedResult = jsonDecode(result);
-      if (!(decodedResult is Map<dynamic, dynamic>)) throw FormatException();
+      // decodedResult = jsonDecode(result);
+      // if (!(decodedResult is Map<dynamic, dynamic>)) throw FormatException();
 
       Branch branch = await Branch().fetch(decodedResult['branchID']);
       Restaurant restaurant =

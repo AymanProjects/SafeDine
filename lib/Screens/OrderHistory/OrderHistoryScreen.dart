@@ -40,7 +40,7 @@ class OrderHistory extends StatelessWidget {
   Widget showHistoryOrders(List<Order> orders) {
     return Expanded(
       child: ListView.separated(
-        padding: EdgeInsets.only(right: 15, left: 15, top: 15, bottom: 85),
+        padding: EdgeInsets.only(right: 15, left: 15, top: 15, bottom: 15),
         separatorBuilder: (context, _) => Container(
           height: 20,
         ),

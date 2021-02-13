@@ -119,7 +119,7 @@ class _CartScreenState extends State<CartScreen> {
                   restaurantName: restaurant.getName(),
                   branchID: branch.getID(),
                   date: DateTime.now().toString(),
-                  status: OrderStatus.BeingPrepared.toString(),
+                  status: OrderStatus.New.toString(),
                   paymentType: _selectedPaymentIndex == 1 ? 'cash' : 'paypal',
                   tableNumber: tableNumber.number,
                   totalPrice: cart.getTotalPrice(),

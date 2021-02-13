@@ -16,7 +16,6 @@ class _OrderProgressScreenState extends State<OrderProgressScreen> {
   @override
   Widget build(BuildContext context) {
     Visitor visitor = Provider.of<Visitor>(context, listen: true);
-
     return GlobalScaffold(
       hasDrawer: true,
       title: 'Order Progress',
