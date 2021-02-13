@@ -5,10 +5,10 @@ import '../Interfaces/DatabaseModel.dart';
 import 'ItemDetails.dart';
 
 enum OrderStatus {
+  Pending,
   BeingPrepared,
   Served,
   Cancelled,
-  New
 }
 
 class Order implements DatabaseModel {

@@ -1,6 +1,7 @@
 import 'package:SafeDine/Interfaces/DatabaseModel.dart';
 import 'package:SafeDine/Models/Order.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class Database {
@@ -46,11 +47,12 @@ class Database {
   }
 
   static Stream<List<Order>> getOrdersOfVisitorWhere(
-      {String status, String visitorID}) {
+      {List<String> status, String visitorID, String branchID}) {
     return Firestore.instance
         .collection(ordersCollection)
-        .where('visitorID', isEqualTo: visitorID)
-        .where('status', isEqualTo: status)
+        .where('visitorID', isEqualTo: visitorID ?? '')
+        .where('branchID', isEqualTo: branchID ?? '')
+        .where('status', whereIn: status)
         .orderBy('date', descending: true)
         .snapshots()
         .map((QuerySnapshot snapshot) {

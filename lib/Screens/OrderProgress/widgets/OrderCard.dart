@@ -27,7 +27,7 @@ class OrderCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Being prepared",
+              Text(order.getStatus(),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

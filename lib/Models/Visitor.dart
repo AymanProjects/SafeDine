@@ -20,13 +20,12 @@ class Visitor extends Account implements DatabaseModel {
 
   Future<void> placeOrder({Order order, BuildContext context}) async {
     try {
-      // first, store the order in database
+      // if paypal used -> pay
+      if (order.getPaymentType() == 'paypal') {
+        await PayPal.pay(context, order);
+      }
       await Database.setDocument(order, Database.ordersCollection);
-      // then, if paypal used -> pay
-      if (order.getPaymentType() == 'paypal') await PayPal.pay(context, order);
     } catch (e) {
-      // if something goes wrong, delete the order
-      Database.deleteDocument(order.id, Database.ordersCollection);
       rethrow;
     }
   }

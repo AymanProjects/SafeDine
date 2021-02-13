@@ -1,3 +1,4 @@
+import 'package:SafeDine/Models/Branch.dart';
 import 'package:SafeDine/Models/Order.dart';
 import 'package:SafeDine/Models/Visitor.dart';
 import 'package:SafeDine/Screens/OrderProgress/widgets/OrderCard.dart';
@@ -26,9 +27,13 @@ class _OrderProgressScreenState extends State<OrderProgressScreen> {
   }
 
   Widget getUserOrder({context, String userID}) {
+    Branch branch = Provider.of<Branch>(context, listen: false);
     return StreamBuilder<List<Order>>(
       stream: Database.getOrdersOfVisitorWhere(
-          status: 'BeingPrepared', visitorID: userID),
+        status: ['BeingPrepared', 'Pending'],
+        visitorID: userID,
+        branchID: branch.getID(),
+      ),
       builder: (_, AsyncSnapshot<List<Order>> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.length > 0)
