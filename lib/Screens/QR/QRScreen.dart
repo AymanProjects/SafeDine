@@ -80,8 +80,8 @@ class _QRScreenState extends State<QRScreen> {
       _loading = true;
     });
     dynamic decodedResult = {
-      'branchID': 'iWRz5HaXVa16ckOXS2kI',//MNk7koNiG36Vhaxk8KOG
-      'tableNumber': '5'
+      'branchID': 'ZeVwvgGUg2mqF9yeW4sh',//MNk7koNiG36Vhaxk8KOG
+      'tableNumber': '8'
     };
     try {
       // String result = await Visitor().scanQR();

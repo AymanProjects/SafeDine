@@ -1,3 +1,4 @@
+import 'package:SafeDine/Models/Branch.dart';
 import 'package:SafeDine/Models/Restaurant.dart';
 import 'package:SafeDine/Providers/HomeDrawerState.dart';
 import 'package:SafeDine/Screens/Menu/widgets/DrawerIcon.dart';
@@ -23,14 +24,15 @@ class MenuAppBar extends StatelessWidget {
         ],
       ),
       child: AppBar(
+        titleSpacing: 0,
         elevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: Provider.of<AppTheme>(context, listen: false).white,
         title: Text(
-          restaurant.getName(),
+          '${restaurant.getName()} - ${Provider.of<Branch>(context,listen:false).getName()}',
           style: TextStyle(
             color: Colors.black,
-            fontSize: 22,
+            fontSize: 20,
           ),
         ),
         centerTitle: true,
