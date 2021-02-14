@@ -30,9 +30,12 @@ class ItemDetailAppBar extends StatelessWidget {
           padding: EdgeInsets.zero,
         ),
       ),
-      flexibleSpace: Image(
-        image: CachedNetworkImageProvider(item.getUrl()),
-        fit: BoxFit.cover,
+      flexibleSpace: Hero(
+        tag: item.hashCode,
+              child: Image(
+          image: CachedNetworkImageProvider(item.getUrl()),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

@@ -57,13 +57,16 @@ class FoodItemCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(7)),
-              child: Container(
-                  width: 90,
-                  height: double.infinity,
-                  child: CachedNetworkImage(
-                    imageUrl: itemDetails.getItem().getUrl(),
-                    fit: BoxFit.cover,
-                  )),
+              child: Hero(
+                tag: itemDetails.getItem().hashCode,
+                child: Container(
+                    width: 90,
+                    height: double.infinity,
+                    child: CachedNetworkImage(
+                      imageUrl: itemDetails.getItem().getUrl(),
+                      fit: BoxFit.cover,
+                    )),
+              ),
             ),
             SizedBox(
               width: 12,
