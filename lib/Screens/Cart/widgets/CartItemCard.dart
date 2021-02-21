@@ -24,7 +24,7 @@ class CartItemCard extends StatelessWidget {
             return ItemDetailScreen(
               itemDetails: itemDetails,
               buttonText: 'Update',
-              buttonFunction: () {
+              buttonFunction: (updatedItem) {
                 cart.updateCart();
               },
             );

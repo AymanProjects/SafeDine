@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class ItemDetailScreen extends StatefulWidget {
   final ItemDetails itemDetails;
   final String buttonText;
-  final Function buttonFunction;
+  final Function(ItemDetails) buttonFunction;
   ItemDetailScreen(
       {@required this.itemDetails,
       @required this.buttonFunction,
