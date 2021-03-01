@@ -6,135 +6,65 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-enum SnackbarType {
-  Error,
-  Warning,
-  Success,
-  CartNotification,
-}
-
-class SafeDineSnackBar {
+class FlashSnackBar {
   static FlashController _previousController;
+  static BuildContext _context;
+  FlashSnackBar._();
 
-  static void showConfirmationDialog({
-    @required BuildContext context,
-    @required String message,
-    @required Widget negativeActionText,
-    @required Function negativeAction,
-    @required Widget positiveActionText,
-    @required Function positiveAction,
-  }) {
-    showFlash(
-      transitionDuration: Duration(milliseconds: 200),
-      context: context,
-      persistent: false,
-      builder: (context, controller) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return Flash.dialog(
-              enableDrag: true,
-              controller: controller,
-              margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-              child: FlashBar(
-                shouldIconPulse: false,
-                message: Text(
-                  message,
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                actions: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              if (positiveAction != null) positiveAction();
-                              if (controller?.isDisposed == false)
-                                controller.dismiss();
-                            },
-                            child: positiveActionText),
-                        SizedBox(
-                          width: 25,
-                        ),
-                        InkWell(
-                            onTap: () {
-                              if (negativeAction != null) negativeAction();
-                              if (controller?.isDisposed == false)
-                                controller.dismiss();
-                            },
-                            child: negativeActionText),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
+  static void init(BuildContext context) {
+    _context = context;
   }
 
-  static void showNotification(
-      {@required SnackbarType type,
-      @required BuildContext context,
-      @required String msg,
-      Function ontap,
-      String actionName = 'Dismiss',
-      Function onActionTap,
-      int duration = 4}) {
-    Color color;
-    IconData icon;
-    bool dismissOnClick = false;
-    if (type == SnackbarType.Error) {
-      color = Colors.red;
-      icon = Icons.error_outline;
-    } else if (type == SnackbarType.Warning) {
-      color = Colors.orange;
-      icon = Icons.info_outline;
-    } else if (type == SnackbarType.Success) {
-      color = Colors.green;
-      icon = Icons.done;
-    } else if (type == SnackbarType.CartNotification) {
-      color = Provider.of<AppTheme>(context, listen: false).primary;
-      icon = CupertinoIcons.cart;
-      dismissOnClick = true;
-    }
-    _snackBar(
-      context: context,
-      duration: duration,
-      msg: msg,
-      ontap: () {
-        if (ontap != null) ontap();
-        if (_previousController?.isDisposed == false && dismissOnClick)
-          _previousController.dismiss();
-      },
+  static void error(
+      {@required String message, String actionName, Function onActionTap}) {
+    _showSnackBar(
+      msg: message,
+      color: Colors.red,
+      icon: Icons.error_outline,
       actionName: actionName,
-      onActionTap: () {
-        if (onActionTap != null) onActionTap();
-      },
-      icon: icon,
-      color: color,
+      onActionTap: onActionTap,
     );
   }
 
-  static void _snackBar(
-      {BuildContext context,
-      String msg,
-      Color color,
-      String actionName,
-      Function onActionTap,
-      int duration,
-      IconData icon,
-      Function ontap}) {
+  static void warning({@required String message}) {
+    _showSnackBar(
+      msg: message,
+      color: Colors.orange,
+      icon: Icons.info_outline,
+    );
+  }
+
+  static void success(
+      {@required String message, Function onTap, int duration}) {
+    _showSnackBar(
+      msg: message,
+      color: Colors.green,
+      icon: Icons.done,
+      onTap: onTap,
+      duration: duration,
+    );
+  }
+
+  static void _showSnackBar({
+    String msg,
+    @required Color color,
+    int duration,
+    IconData icon,
+    Function onTap,
+    String actionName,
+    Function onActionTap,
+  }) {
     if (_previousController?.isDisposed == false) _previousController.dismiss();
-    _previousController = FlashController(context, (context, controller) {
+    _previousController = FlashController(_context, (context, controller) {
       return Flash(
         controller: controller,
-        onTap: ontap,
+        onTap: () {
+          if (onTap != null) {
+            onTap();
+            if (_previousController?.isDisposed == false)
+              _previousController.dismiss();
+          }
+        },
         backgroundColor: color,
         child: FlashBar(
           padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
@@ -159,10 +89,11 @@ class SafeDineSnackBar {
                 onTap: () {
                   if (_previousController?.isDisposed == false)
                     _previousController.dismiss();
-                  onActionTap();
+
+                  onActionTap?.call();
                 },
                 child: Text(
-                  actionName,
+                  actionName ?? 'Dismiss',
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.45),
                       fontWeight: FontWeight.bold),
@@ -173,7 +104,7 @@ class SafeDineSnackBar {
         ),
       );
     },
-        duration: Duration(seconds: duration),
+        duration: Duration(seconds: duration ?? 4),
         persistent: false,
         transitionDuration: Duration(milliseconds: 400));
     _previousController.show();
@@ -181,10 +112,9 @@ class SafeDineSnackBar {
 
   static void showTextFieldDialog({
     @required String initialData,
-    @required BuildContext context,
     @required String message,
     @required Widget positiveActionText,
-    @required Function positiveAction,
+    @required Future Function(String) positiveAction,
     @required Widget negativeActionText,
     @required Function negativeAction,
   }) {
@@ -193,12 +123,13 @@ class SafeDineSnackBar {
     bool _loading = false;
     showFlash(
       transitionDuration: Duration(milliseconds: 200),
-      context: context,
+      context: _context,
       persistent: false,
       builder: (context, controller) {
         return StatefulBuilder(
           builder: (context, setState) {
             return Flash.dialog(
+              backgroundColor: Provider.of<AppTheme>(_context).darkWhite,
               enableDrag: true,
               controller: controller,
               margin: const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -257,15 +188,82 @@ class SafeDineSnackBar {
                                       setState(() {
                                         _loading = true;
                                       });
-                                      await positiveAction(
-                                          textFieldValue, controller);
+                                      await positiveAction(textFieldValue)
+                                          .then((value) {
+                                        if (controller?.isDisposed == false) {
+                                          controller.dismiss();
+                                        }
+                                      });
                                       setState(() {
                                         _loading = false;
                                       });
                                     }
                                   }
                                 },
-                                child: positiveActionText),
+                                child: positiveActionText,
+                              ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  static void showConfirmationDialog({
+    @required String message,
+    @required Widget negativeActionText,
+    @required Function negativeAction,
+    @required Widget positiveActionText,
+    @required Function positiveAction,
+  }) {
+    showFlash(
+      transitionDuration: Duration(milliseconds: 200),
+      context: _context,
+      persistent: false,
+      builder: (context, controller) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Flash.dialog(
+              enableDrag: true,
+              controller: controller,
+              margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+              child: FlashBar(
+                shouldIconPulse: false,
+                message: Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+                actions: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              if (positiveAction != null) positiveAction();
+                              if (controller?.isDisposed == false)
+                                controller.dismiss();
+                            },
+                            child: positiveActionText),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            if (negativeAction != null) negativeAction();
+                            if (controller?.isDisposed == false)
+                              controller.dismiss();
+                          },
+                          child: negativeActionText,
+                        ),
                       ],
                     ),
                   ),

@@ -3,7 +3,7 @@ import 'package:SafeDine/Models/Order.dart';
 import 'package:SafeDine/Models/Visitor.dart';
 import 'package:SafeDine/Services/FirebaseException.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
-import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
+import 'package:SafeDine/Services/FlashSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -84,9 +84,8 @@ class OrderCard extends StatelessWidget {
   }
 
   showConfirmationDialog(context, order) {
-    SafeDineSnackBar.showConfirmationDialog(
+    FlashSnackBar.showConfirmationDialog(
       message: 'Do you really want to cancel this order? \n',
-      context: context,
       positiveActionText: Text(
         'Yes',
         style: TextStyle(color: Colors.red, fontSize: 14),
@@ -96,11 +95,8 @@ class OrderCard extends StatelessWidget {
           Visitor visitor = Provider.of<Visitor>(context, listen: false);
           await visitor.cancelOrder(order);
         } on PlatformException catch (exception) {
-          String msg = FirebaseException.generateReadableMessage(exception);
-          SafeDineSnackBar.showNotification(
-            type: SnackbarType.Error,
-            context: context,
-            msg: msg,
+          FlashSnackBar.error(
+            message: FirebaseException.generateReadableMessage(exception),
           );
         }
       },

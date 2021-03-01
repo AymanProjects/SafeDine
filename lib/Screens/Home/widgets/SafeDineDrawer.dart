@@ -8,7 +8,7 @@ import 'package:SafeDine/Screens/OrderHistory/OrderHistoryScreen.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/AppLogo.dart';
 import 'package:SafeDine/Widgets/SafeDineButton.dart';
-import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
+import 'package:SafeDine/Services/FlashSnackBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,16 +65,12 @@ class SafeDineDrawer extends StatelessWidget {
                       await Visitor().callWaiter(branch.getID(),
                           'Help needed at table ' + tableNumber.number + '!');
                       Navigator.of(context).pop();
-                      SafeDineSnackBar.showNotification(
-                        type: SnackbarType.Success,
-                        context: context,
-                        msg: 'Your request was sent to the waiter',
+                      FlashSnackBar.success(
+                        message: 'Your request was sent to the waiter',
                       );
                     } on PlatformException catch (exception) {
-                      SafeDineSnackBar.showNotification(
-                        type: SnackbarType.Error,
-                        context: context,
-                        msg: 'Couldn\'t send your request',
+                      FlashSnackBar.error(
+                        message: 'Couldn\'t send your request',
                       );
                     }
                   },
@@ -138,11 +134,7 @@ class SafeDineDrawer extends StatelessWidget {
         function: () {
           visitor.logout();
           Navigator.of(context).pop();
-          SafeDineSnackBar.showNotification(
-            type: SnackbarType.Warning,
-            context: context,
-            msg: 'Logged out',
-          );
+          FlashSnackBar.warning(message: 'Logged out');
         },
       ),
     );

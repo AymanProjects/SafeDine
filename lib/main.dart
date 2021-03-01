@@ -47,13 +47,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     final Visitor visitor = Provider.of(context, listen: false);
     return StreamBuilder<FirebaseUser>(
-        stream: Authentication.getUserState(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            visitor.setID(snapshot.data.uid);
-          } else
-            visitor.setID(null);
-          return QRScreen();
-        });
+      stream: Authentication.getUserState(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          visitor.setID(snapshot.data.uid);
+        } else
+          visitor.setID(null);
+        return QRScreen();
+      },
+    );
   }
 }

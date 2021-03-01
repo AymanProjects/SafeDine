@@ -13,7 +13,7 @@ import 'package:SafeDine/Screens/Home/widgets/ScreenIndex.dart';
 import 'package:SafeDine/Services/FirebaseException.dart';
 import 'package:SafeDine/Widgets/GlobalScaffold.dart';
 import 'package:SafeDine/Widgets/SafeDineButton.dart';
-import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
+import 'package:SafeDine/Services/FlashSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -130,11 +130,9 @@ class _CartScreenState extends State<CartScreen> {
                 try {
                   await visitor.placeOrder(context: context, order: order);
                   cart.clearCart();
-                  SafeDineSnackBar.showNotification(
+                  FlashSnackBar.success(
                     duration: 2,
-                    context: context,
-                    msg: 'Order sent  👍',
-                    type: SnackbarType.Success,
+                    message: 'Order sent  👍',
                   );
                   Provider.of<ScreenIndex>(context, listen: false)
                       .setScreenIndex(0);
@@ -145,12 +143,7 @@ class _CartScreenState extends State<CartScreen> {
                   else
                     errorMsg =
                         FirebaseException.generateReadableMessage(exception);
-                  SafeDineSnackBar.showNotification(
-                    duration: 2,
-                    context: context,
-                    msg: errorMsg,
-                    type: SnackbarType.Error,
-                  );
+                  FlashSnackBar.error(message: errorMsg);
                 }
               } else {
                 Navigator.push(

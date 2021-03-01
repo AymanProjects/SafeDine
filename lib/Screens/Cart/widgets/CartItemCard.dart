@@ -3,7 +3,7 @@ import 'package:SafeDine/Models/Cart.dart';
 import 'package:SafeDine/Models/ItemDetails.dart';
 import 'package:SafeDine/Screens/Menu/ItemDetailScreen.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
-import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
+import 'package:SafeDine/Services/FlashSnackBar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +24,7 @@ class CartItemCard extends StatelessWidget {
             return ItemDetailScreen(
               itemDetails: itemDetails,
               buttonText: 'Update',
+              isUpdateScreen: true,
               buttonFunction: (updatedItem) {
                 cart.updateCart();
               },
@@ -109,11 +110,8 @@ class CartItemCard extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       cart.removeFromCart(itemDetails);
-
-                      SafeDineSnackBar.showNotification(
-                        type: SnackbarType.Error,
-                        context: context,
-                        msg: "Item Removed",
+                      FlashSnackBar.error(
+                        message: "Item Removed",
                         actionName: 'Undo',
                         onActionTap: () {
                           cart.addToCart(itemDetails);

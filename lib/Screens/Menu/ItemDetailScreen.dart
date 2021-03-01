@@ -10,10 +10,13 @@ class ItemDetailScreen extends StatefulWidget {
   final ItemDetails itemDetails;
   final String buttonText;
   final Function(ItemDetails) buttonFunction;
-  ItemDetailScreen(
-      {@required this.itemDetails,
-      @required this.buttonFunction,
-      @required this.buttonText});
+  final bool isUpdateScreen;
+  ItemDetailScreen({
+    @required this.itemDetails,
+    @required this.buttonFunction,
+    @required this.buttonText,
+    this.isUpdateScreen = false,
+  });
 
   @override
   _ItemDetailScreenState createState() => _ItemDetailScreenState();
@@ -102,9 +105,14 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           function: () {
             if (widget.buttonFunction != null) {
               ItemDetails modifiedItemDetials = ItemDetails();
-              modifiedItemDetials.setItem(widget.itemDetails.getItem());
-              modifiedItemDetials.setQuantity(tempQuantity);
-              modifiedItemDetials.setSelectedAddOns(tempSelectedAddOns);
+              if (widget.isUpdateScreen) {
+                widget.itemDetails.setQuantity(tempQuantity);
+                widget.itemDetails.setSelectedAddOns(tempSelectedAddOns);
+              } else {
+                modifiedItemDetials.setItem(widget.itemDetails.getItem());
+                modifiedItemDetials.setQuantity(tempQuantity);
+                modifiedItemDetials.setSelectedAddOns(tempSelectedAddOns);
+              }
               widget.buttonFunction(modifiedItemDetials);
             }
             Navigator.pop(context);

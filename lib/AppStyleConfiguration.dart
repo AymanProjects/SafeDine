@@ -1,3 +1,4 @@
+import 'package:SafeDine/Services/FlashSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
@@ -32,10 +33,13 @@ class AppStyleConfiguration extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: Provider.of<AppTheme>(context).currentTheme(),
             home: Builder(
-              builder: (context) => MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                child: child,
-              ),
+              builder: (context) {
+                FlashSnackBar.init(context);
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  child: child,
+                );
+              },
             ),
           ),
         );

@@ -40,7 +40,8 @@ class SafeDineField extends StatelessWidget {
         suffixIcon: icon,
         contentPadding: EdgeInsets.all(16.0),
         filled: true,
-        fillColor: Provider.of<AppTheme>(context,listen: false).darkWhite,
+        fillColor:
+            Provider.of<AppTheme>(context, listen: false).grey.withOpacity(0.1),
         enabledBorder: border(context: context),
         focusedBorder: border(context: context, isSelected: true),
         errorBorder: border(context: context),
@@ -68,7 +69,7 @@ class SafeDineField extends StatelessWidget {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(6),
       borderSide: BorderSide(
-        color: Provider.of<AppTheme>(context,listen: false).darkWhite,
+        color: Provider.of<AppTheme>(context, listen: false).darkWhite,
         width: 0.5,
         style: BorderStyle.solid,
       ),

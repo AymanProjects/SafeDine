@@ -8,7 +8,7 @@ import 'package:SafeDine/Services/FirebaseException.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
 import 'package:SafeDine/Widgets/FadeRouteAnimation.dart';
 import 'package:SafeDine/Widgets/SafeDineButton.dart';
-import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
+import 'package:SafeDine/Services/FlashSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -80,7 +80,7 @@ class _QRScreenState extends State<QRScreen> {
       _loading = true;
     });
     dynamic decodedResult = {
-      'branchID': 'ZeVwvgGUg2mqF9yeW4sh',//MNk7koNiG36Vhaxk8KOG
+      'branchID': 'ZeVwvgGUg2mqF9yeW4sh', //MNk7koNiG36Vhaxk8KOG
       'tableNumber': '8'
     };
     try {
@@ -121,17 +121,9 @@ class _QRScreenState extends State<QRScreen> {
         msg = 'Incomplete scan, please try again';
       else
         msg = FirebaseException.generateReadableMessage(exception);
-      SafeDineSnackBar.showNotification(
-        msg: msg,
-        context: context,
-        type: SnackbarType.Error,
-      );
-    } on FormatException catch (exception) {
-      SafeDineSnackBar.showNotification(
-        msg: 'QR code is invalid',
-        context: context,
-        type: SnackbarType.Warning,
-      );
+      FlashSnackBar.error(message: msg);
+    } on FormatException catch (e) {
+      FlashSnackBar.warning(message: 'QR code is invalid');
     }
 
     setState(() {

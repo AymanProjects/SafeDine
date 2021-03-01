@@ -3,7 +3,7 @@ import 'package:SafeDine/Models/ItemDetails.dart';
 import 'package:SafeDine/Screens/Home/widgets/ScreenIndex.dart';
 import 'package:SafeDine/Screens/Menu/ItemDetailScreen.dart';
 import 'package:SafeDine/Utilities/AppTheme.dart';
-import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
+import 'package:SafeDine/Services/FlashSnackBar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,13 +26,12 @@ class FoodItemCard extends StatelessWidget {
               buttonFunction: (ItemDetails modfiedItemDetails) {
                 Provider.of<Cart>(context, listen: false)
                     .addToCart(modfiedItemDetails);
-                SafeDineSnackBar.showNotification(
-                    type: SnackbarType.CartNotification,
-                    context: context,
-                    msg: 'Added to Cart',
-                    ontap: () {
-                      homeScreenIndexProvider.setScreenIndex(2);
-                    });
+                FlashSnackBar.success(
+                  message: 'Added to Cart',
+                  onTap: () {
+                    homeScreenIndexProvider.setScreenIndex(2);
+                  },
+                );
               },
             );
           },

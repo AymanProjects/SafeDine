@@ -3,7 +3,7 @@ import 'package:SafeDine/Services/FirebaseException.dart';
 import 'package:SafeDine/Utilities/Validations.dart';
 import 'package:SafeDine/Widgets/SafeDineButton.dart';
 import 'package:SafeDine/Widgets/SafeDineField.dart';
-import 'package:SafeDine/Widgets/SafeDineSnackBar.dart';
+import 'package:SafeDine/Services/FlashSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -83,9 +83,8 @@ class _AuthPageViewState extends State<AuthPageView> {
                           ),
                           highlightColor: Colors.transparent,
                           onTap: () {
-                            SafeDineSnackBar.showTextFieldDialog(
+                            FlashSnackBar.showTextFieldDialog(
                               initialData: _email,
-                              context: context,
                               message: 'Enter your email to receive a link',
                               negativeActionText: Text(
                                 'Cancel',
@@ -97,22 +96,16 @@ class _AuthPageViewState extends State<AuthPageView> {
                                 style: TextStyle(
                                     color: Theme.of(context).primaryColor),
                               ),
-                              positiveAction: (email, controller) async {
+                              positiveAction: (newValue) async {
                                 try {
-                                  await Visitor(email: email).forgotPassword();
-                                  if (controller?.isDisposed == false) {
-                                    controller.dismiss();
-                                  }
-                                  SafeDineSnackBar.showNotification(
-                                    context: context,
-                                    msg: 'Email has been sent  ✉️',
-                                    type: SnackbarType.Success,
+                                  await Visitor(email: newValue)
+                                      .forgotPassword();
+                                  FlashSnackBar.success(
+                                    message: 'Email has been sent  ✉️',
                                   );
                                 } on PlatformException catch (e) {
-                                  SafeDineSnackBar.showNotification(
-                                    type: SnackbarType.Error,
-                                    context: context,
-                                    msg: FirebaseException
+                                  FlashSnackBar.error(
+                                    message: FirebaseException
                                         .generateReadableMessage(e),
                                   );
                                 }
@@ -166,14 +159,9 @@ class _AuthPageViewState extends State<AuthPageView> {
         Navigator.of(context).pop();
       } on PlatformException catch (exception) {
         String msg = FirebaseException.generateReadableMessage(
-            exception); //firebase exception happened
-        SafeDineSnackBar.showNotification(
-            context: context, type: SnackbarType.Error, msg: msg);
-      } catch (e) {
-        SafeDineSnackBar.showNotification(
-            context: context,
-            msg: 'Undefined error happened',
-            type: SnackbarType.Error);
+          exception,
+        );
+        FlashSnackBar.error(message: msg);
       }
     }
     setState(() {
