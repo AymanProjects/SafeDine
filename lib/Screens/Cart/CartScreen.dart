@@ -57,6 +57,7 @@ class _CartScreenState extends State<CartScreen> {
           }
           return CartItemCard(
             itemDetails: items[index],
+            index: index,
           );
         },
       ),

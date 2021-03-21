@@ -31,10 +31,17 @@ void main() {
   final passwordLoginField = find.byValueKey('passwordLoginField');
   final menuPageTap = find.byValueKey('menu page tap');
   final cartPageTap = find.byValueKey('cart page tap');
-  final foodItemCard = find.byValueKey('foodItem0');
+  final foodItemCard0 = find.byValueKey('foodItem0');
+  final foodItemCard1 = find.byValueKey('foodItem1');
   final addItemToCartButton = find.byValueKey('addItemToCartButton');
   final placeOrderButton = find.byValueKey('placeOrderButton');
   final cartList = find.byValueKey('cartList');
+  final cancelOrderButton = find.byValueKey('order0');
+  final confirmOrderCancel = find.byValueKey('cancelOrder');
+  final editCartItem0 = find.byValueKey('editCartItem0');
+  final increaseItemQuantity = find.byValueKey('increaseItemQuantity');
+  final orderNoteField = find.byValueKey('orderNoteField');
+  final deleteCartItem1 = find.byValueKey('deleteCartItem1');
 
   test('Visitor Registration', () async {
     await driver.tap(scanQRButton);
@@ -73,14 +80,38 @@ void main() {
 
   test('Add Item to Cart', () async {
     await driver.tap(menuPageTap);
-    await driver.tap(foodItemCard);
+    await driver.tap(foodItemCard0);
     await driver.tap(addItemToCartButton);
     await driver.tap(cartPageTap);
+  });
+  test('Add Another Item to Cart', () async {
+    await driver.tap(menuPageTap);
+    await driver.tap(foodItemCard1);
+    await driver.tap(addItemToCartButton);
+    await driver.tap(cartPageTap);
+  });
+
+  test('Update Cart', () async {
+    sleep(Duration(seconds: 2));
+    await driver.tap(editCartItem0);
+    await driver.tap(increaseItemQuantity);
+    await driver.tap(addItemToCartButton);
+    await driver.tap(orderNoteField);
+    await driver.enterText('Extra ketchup please');
+    await driver.tap(deleteCartItem1);
+    sleep(Duration(seconds: 2));
   });
 
   test('Place Order', () async {
     await driver.scroll(cartList, 0, -1000, Duration(seconds: 1));
     await driver.tap(placeOrderButton);
+    sleep(Duration(seconds: 2));
+  });
+
+  test('Cancel Order', () async {
+    await driver.tap(cancelOrderButton);
+    await driver.tap(confirmOrderCancel);
+
     sleep(Duration(seconds: 2));
   });
 }

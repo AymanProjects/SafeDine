@@ -10,14 +10,15 @@ import 'package:provider/provider.dart';
 
 class CartItemCard extends StatelessWidget {
   final ItemDetails itemDetails;
-
-  CartItemCard({this.itemDetails});
+  final int index;
+  CartItemCard({this.itemDetails, this.index});
 
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: false);
 
     return InkWell(
+      key: ValueKey('editCartItem$index'),
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (_) {
@@ -108,6 +109,7 @@ class CartItemCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   InkWell(
+                    key: ValueKey('deleteCartItem$index'),
                     onTap: () {
                       cart.removeFromCart(itemDetails);
                       FlashSnackBar.error(

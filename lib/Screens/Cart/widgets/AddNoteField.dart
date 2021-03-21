@@ -19,6 +19,7 @@ class AddNoteField extends StatelessWidget {
       child: SizedBox(
         height: 90,
         child: SafeDineField(
+          key: ValueKey('orderNoteField'),
           initialValue: savedValue,
           hintText: 'Add notes to the order...',
           enabled: true,

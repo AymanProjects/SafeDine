@@ -160,6 +160,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           ),
           child: Center(
             child: IconButton(
+              key: ValueKey('increaseItemQuantity'),
               icon: Icon(Icons.add),
               onPressed: () {
                 setState(() {

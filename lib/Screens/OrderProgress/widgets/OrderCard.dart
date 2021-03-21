@@ -69,6 +69,7 @@ class OrderCard extends StatelessWidget {
             children: [
               order.getPaymentType() == 'cash'
                   ? InkWell(
+                      key: ValueKey('order$index'),
                       child:
                           Text('cancel', style: TextStyle(color: Colors.red)),
                       onTap: () {
@@ -88,6 +89,7 @@ class OrderCard extends StatelessWidget {
       message: 'Do you really want to cancel this order? \n',
       positiveActionText: Text(
         'Yes',
+        key: ValueKey('cancelOrder'),
         style: TextStyle(color: Colors.red, fontSize: 14),
       ),
       positiveAction: () async {
