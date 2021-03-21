@@ -45,6 +45,7 @@ class _AuthPageViewState extends State<AuthPageView> {
               height: 30,
             ),
             SafeDineField(
+              key: ValueKey('email${widget.buttonText}Field'),
               icon: Icon(
                 Icons.email,
               ),
@@ -59,6 +60,7 @@ class _AuthPageViewState extends State<AuthPageView> {
               height: 20,
             ),
             SafeDineField(
+              key: ValueKey('password${widget.buttonText}Field'),
               icon: Icon(
                 Icons.lock,
               ),
@@ -75,6 +77,7 @@ class _AuthPageViewState extends State<AuthPageView> {
                     child: Align(
                         alignment: Alignment.centerRight,
                         child: InkWell(
+                          key: ValueKey('forgotPasswordButton'),
                           child: Text(
                             'forgot password?',
                             style: TextStyle(
@@ -84,6 +87,7 @@ class _AuthPageViewState extends State<AuthPageView> {
                           highlightColor: Colors.transparent,
                           onTap: () {
                             FlashSnackBar.showTextFieldDialog(
+                              key: ValueKey('forgotPasswordField'),
                               initialData: _email,
                               message: 'Enter your email to receive a link',
                               negativeActionText: Text(
@@ -119,6 +123,7 @@ class _AuthPageViewState extends State<AuthPageView> {
               height: 35,
             ),
             SafeDineButton(
+              key: ValueKey('${widget.buttonText}Button'),
               fontSize: 16,
               text: widget.buttonText,
               loading: _loading,

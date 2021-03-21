@@ -99,6 +99,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           ],
         ),
         child: SafeDineButton(
+          key: ValueKey('addItemToCartButton'),
           text:
               '${widget.buttonText} SAR ${getTempSelectionPrice().toStringAsFixed(2)}',
           fontSize: 15,

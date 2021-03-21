@@ -52,6 +52,7 @@ class _QRScreenState extends State<QRScreen> {
                     ),
                     Text(
                       'Start by clicking the button and scan the QR code found in restaurant to download food menu.',
+                      key: ValueKey('a'),
                       style: TextStyle(
                           color: Provider.of<AppTheme>(context, listen: false)
                               .grey,
@@ -62,6 +63,7 @@ class _QRScreenState extends State<QRScreen> {
                   ],
                 ),
                 SafeDineButton(
+                  key: const ValueKey('QRbutton'),
                   text: 'Scan QR Code',
                   function: () => _buttonPress(context),
                   loading: _loading,

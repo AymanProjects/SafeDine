@@ -117,6 +117,7 @@ class FlashSnackBar {
     @required Future Function(String) positiveAction,
     @required Widget negativeActionText,
     @required Function negativeAction,
+    Key key,
   }) {
     String textFieldValue = initialData;
     final _formKey = GlobalKey<FormState>();
@@ -145,6 +146,7 @@ class FlashSnackBar {
                 message: Form(
                   key: _formKey,
                   child: SafeDineField(
+                    key: key,
                     initialValue: initialData,
                     validator: (val) => Validations.emailValidation(val),
                     hintText: 'Email',

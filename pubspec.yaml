@@ -41,8 +41,9 @@ dependencies:
   webview_flutter: ^1.0.7
 
 dev_dependencies:
-  flutter_test:
+  flutter_driver:
     sdk: flutter
+  test:
 
 flutter:
   uses-material-design: true

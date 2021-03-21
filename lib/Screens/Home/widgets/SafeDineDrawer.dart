@@ -107,6 +107,7 @@ class SafeDineDrawer extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: SafeDineButton(
+        key: ValueKey('drawer login button'),
         color: Colors.green,
         fontSize: 14,
         text: 'Login',
@@ -128,6 +129,7 @@ class SafeDineDrawer extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: SafeDineButton(
+        key: ValueKey('drawer logout button'),
         color: Colors.redAccent,
         fontSize: 14,
         text: 'Logout',

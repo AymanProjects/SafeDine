@@ -93,6 +93,7 @@ class _AuthScreenState extends State<AuthScreen>
                                       fontWeight: FontWeight.bold),
                                   tabs: <Widget>[
                                     Tab(
+                                      key: ValueKey('login page tap'),
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
@@ -102,6 +103,7 @@ class _AuthScreenState extends State<AuthScreen>
                                       ),
                                     ),
                                     Tab(
+                                      key: ValueKey('register page tap'),
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(

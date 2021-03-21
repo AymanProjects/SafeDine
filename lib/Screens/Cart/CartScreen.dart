@@ -45,6 +45,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget showCartItems(List<ItemDetails> items) {
     return Expanded(
       child: ListView.separated(
+        key: ValueKey('cartList'),
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
         separatorBuilder: (context, _) => Container(
           height: 10,
@@ -99,6 +100,7 @@ class _CartScreenState extends State<CartScreen> {
             height: 20,
           ),
           SafeDineButton(
+            key: ValueKey('placeOrderButton'),
             color: _selectedPaymentIndex == 1
                 ? Colors.green
                 : Theme.of(context).primaryColor,

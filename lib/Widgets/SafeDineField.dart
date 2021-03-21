@@ -13,17 +13,19 @@ class SafeDineField extends StatelessWidget {
   final bool enabled;
   final int maxLines;
   final String initialValue;
-  SafeDineField(
-      {this.enabled = true,
-      this.autoValidate = false,
-      this.hintText = '',
-      this.validator,
-      this.initialValue,
-      this.onChanged,
-      this.isPassword = false,
-      this.isEmail = false,
-      this.icon,
-      this.maxLines = 1});
+  SafeDineField({
+    this.enabled = true,
+    this.autoValidate = false,
+    this.hintText = '',
+    this.validator,
+    this.initialValue,
+    this.onChanged,
+    this.isPassword = false,
+    this.isEmail = false,
+    this.icon,
+    this.maxLines = 1,
+    Key key,
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {

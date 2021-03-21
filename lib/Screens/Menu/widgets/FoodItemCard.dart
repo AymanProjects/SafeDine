@@ -10,13 +10,15 @@ import 'package:provider/provider.dart';
 
 class FoodItemCard extends StatelessWidget {
   final ItemDetails itemDetails;
-  FoodItemCard({this.itemDetails});
+  final int index;
+  FoodItemCard({this.itemDetails, this.index});
 
   @override
   Widget build(BuildContext context) {
     ScreenIndex homeScreenIndexProvider =
         Provider.of<ScreenIndex>(context, listen: false);
     return InkWell(
+      key: ValueKey('foodItem$index'),
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (_) {

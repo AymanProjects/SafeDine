@@ -6,12 +6,18 @@ class SafeDineButton extends StatelessWidget {
   final Function function;
   final bool loading;
   Color color;
-  SafeDineButton({this.loading = false, this.text = '', this.function, this.fontSize=16,this.color});
+  SafeDineButton({
+    this.loading = false,
+    this.text = '',
+    this.function,
+    this.fontSize = 16,
+    this.color,
+    Key key,
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if(color==null)
-    color = Theme.of(context).primaryColor;
+    if (color == null) color = Theme.of(context).primaryColor;
 
     return Container(
       width: double.infinity,

@@ -10,20 +10,20 @@ import 'Services/Authentication.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await precachePicture(
-    ExactAssetPicture(
-      SvgPicture.svgStringDecoder,
-      'assets/svg_images/scan.svg',
-    ),
-    null,
-  );
-  await precachePicture(
-    ExactAssetPicture(
-      SvgPicture.svgStringDecoder,
-      'assets/svg_images/SafeDine.svg',
-    ),
-    null,
-  );
+  // await precachePicture(
+  //   ExactAssetPicture(
+  //     SvgPicture.svgStringDecoder,
+  //     'assets/svg_images/scan.svg',
+  //   ),
+  //   null,
+  // );
+  // await precachePicture(
+  //   ExactAssetPicture(
+  //     SvgPicture.svgStringDecoder,
+  //     'assets/svg_images/SafeDine.svg',
+  //   ),
+  //   null,
+  // );
 
   runApp(
     MultiProvider(

@@ -29,6 +29,7 @@ class GlobalScaffold extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
+                  key: ValueKey('open drawer button'),
                     onTap: () {
                       hasDrawer
                           ? Provider.of<HomeDrawerState>(context, listen: false)

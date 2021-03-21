@@ -23,16 +23,29 @@ class _SafeDineBottomNavigationState extends State<SafeDineBottomNavigation> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           bottomBarItem(
-              index: 0, icon: Icons.hourglass_empty, context: context),
+            key: ValueKey('order progress page tap'),
+            index: 0,
+            icon: Icons.hourglass_empty,
+            context: context,
+          ),
           bottomBarItem(
-              index: 1, icon: CupertinoIcons.doc_plaintext, context: context),
-          bottomBarItem(index: 2, icon: CupertinoIcons.cart, context: context),
+            key: ValueKey('menu page tap'),
+            index: 1,
+            icon: CupertinoIcons.doc_plaintext,
+            context: context,
+          ),
+          bottomBarItem(
+            key: ValueKey('cart page tap'),
+            index: 2,
+            icon: CupertinoIcons.cart,
+            context: context,
+          ),
         ],
       ),
     );
   }
 
-  Widget bottomBarItem({int index, context, IconData icon}) {
+  Widget bottomBarItem({int index, context, IconData icon, Key key}) {
     ScreenIndex selectedScreenIndex =
         Provider.of<ScreenIndex>(context, listen: false);
     bool isSelected = (selectedScreenIndex.index == index);
@@ -41,6 +54,7 @@ class _SafeDineBottomNavigationState extends State<SafeDineBottomNavigation> {
       child: Padding(
         padding: isSelected ? EdgeInsets.only(top: 5) : EdgeInsets.zero,
         child: FlatButton(
+          key: key,
           child: Icon(
             icon,
             size: 23,

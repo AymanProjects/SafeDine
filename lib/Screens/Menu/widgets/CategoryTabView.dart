@@ -28,6 +28,7 @@ class CategoryTabView extends StatelessWidget {
       itemCount: category.getItems().length,
       itemBuilder: (context, index) {
         return FoodItemCard(
+            index: index,
             itemDetails: ItemDetails(
                 item: category.getItems()[index],
                 quantity: 1,
