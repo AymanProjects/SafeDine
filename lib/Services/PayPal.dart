@@ -48,8 +48,8 @@ class PayPal {
       <body onload="document.form.submit();">
 
       <form id="form" name="form" method="POST" action="$_url">
-      
-      <input type="hidden" name="price" value="${order.getTotalPrice()}"/>
+
+      <input type="hidden" name="price" value="${(order.getTotalPrice()/3.75).toStringAsFixed(2)}"/>
       </from>
 
       </body>
