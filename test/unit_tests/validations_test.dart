@@ -41,7 +41,7 @@ main() {
   );
 
   test(
-    'Rhe method "passwordValidation" should return an error that says "minimum 6 characters", if the value is less than 6 characters',
+    'The method "passwordValidation" should return an error that says "minimum 6 characters", if the value is less than 6 characters',
     () {
       String password = '12345';
       String result = Validations.passwordValidation(password);
@@ -50,7 +50,7 @@ main() {
   );
 
   test(
-    'Rhe method "passwordValidation" should return null if the value is more than or equal to 6 characters',
+    'The method "passwordValidation" should return null if the value is more than or equal to 6 characters',
     () {
       String password = '123456';
       String result = Validations.passwordValidation(password);

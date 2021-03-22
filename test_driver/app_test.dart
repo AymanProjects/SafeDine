@@ -111,7 +111,6 @@ void main() {
   test('Cancel Order', () async {
     await driver.tap(cancelOrderButton);
     await driver.tap(confirmOrderCancel);
-
     sleep(Duration(seconds: 2));
   });
 }

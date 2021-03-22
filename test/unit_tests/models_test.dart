@@ -13,17 +13,15 @@ main() {
     () {
       Cart cart = Cart();
       FoodItem item = FoodItem();
-
       ItemDetails itemDetails = ItemDetails(item: item);
       cart.addToCart(itemDetails);
       cart.addToCart(itemDetails);
-
       expect(itemDetails.getQuantity(), 2);
     },
   );
 
   test(
-    'The method "fromJason" should return a Visitor object if the json is valid',
+    'The method "fromJson" should return a Visitor object if the json is valid',
     () {
       Map json = {
         'id': '12345',
