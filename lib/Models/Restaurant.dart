@@ -42,10 +42,6 @@ class Restaurant extends Account implements DatabaseModel{
     );
   }
 
-  bool createTableQR(String tableNumber){
-    //
-  }
-
   @override
   Future<Restaurant> fetch(String id) async{
     DocumentSnapshot doc = await Database.getDocument(id, Database.restaurantsCollection);
