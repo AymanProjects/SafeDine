@@ -7,7 +7,8 @@ import 'FoodItemCard.dart';
 
 class CategoryTabView extends StatelessWidget {
   final Restaurant restaurant;
-  CategoryTabView(this.restaurant);
+  final Future Function() onRefresh;
+  CategoryTabView({this.restaurant,this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +21,24 @@ class CategoryTabView extends StatelessWidget {
   }
 
   Widget categoryItems(Category category) {
-    return ListView.separated(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-      separatorBuilder: (context, _) => Container(
-        height: 10,
+    return RefreshIndicator(
+      onRefresh: onRefresh,
+          child: ListView.separated(
+        // physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        separatorBuilder: (context, _) => Container(
+          height: 10,
+        ),
+        itemCount: category.getItems().length,
+        itemBuilder: (context, index) {
+          return FoodItemCard(
+              index: index,
+              itemDetails: ItemDetails(
+                  item: category.getItems()[index],
+                  quantity: 1,
+                  selectedAddOns: []));
+        },
       ),
-      itemCount: category.getItems().length,
-      itemBuilder: (context, index) {
-        return FoodItemCard(
-            index: index,
-            itemDetails: ItemDetails(
-                item: category.getItems()[index],
-                quantity: 1,
-                selectedAddOns: []));
-      },
     );
   }
 }
